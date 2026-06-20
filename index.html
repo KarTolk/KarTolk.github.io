@@ -125,8 +125,8 @@ section{
     position:absolute;
 
     /* положение кота относительно фото */
-    top:-2px;
-    left:-4px;
+    top:-80px;
+    left:-100px;
 
     width:400px;
 
@@ -297,13 +297,12 @@ section{
 <div class="photo-wrapper">
 
     <img class="photo" src="https://psv4.userapi.com/s/v1/d2/18Bf7gtFS0RTg89E_e41xmSDOBKE1rrRg9VkuAELTvZoC1bNbJpYOySfatmlFdKG8c2YMG3p2tv_E2szolXcVuuJv6a98kspxOHVsp-Z_7EYD0o24egwKjqhlLfw_p_mHuZnX8q4u6Dz/IMG_20260614_131725_1.jpg" alt="Фото">
-
+  <div class="pupil pupil-left"></div>
+        <div class="pupil pupil-right"></div>
     <div class="cat-overlay">
 
         <img src="https://psv4.userapi.com/s/v1/d2/TTnpa9uTQD5jus7qDzEKc9IBBP0sW9BrMeAtID2ybssxJPvDZYfcGmIlvT7szIkL5NN_KYta9awbWkDuXtcKYlzOH-mHF4ibDkLitRDm1L7j4uVXQCljhDPQkH-OgffRhHyX3ZIIAgx-/kot5.png" alt="Cat">
 
-        <div class="pupil pupil-left"></div>
-        <div class="pupil pupil-right"></div>
 
     </div>
 
@@ -458,54 +457,33 @@ window.addEventListener("scroll",()=>{
 </script>
 <script>
 
-const pupils = document.querySelectorAll('.pupil');
+const pupils  = document.querySelectorAll('.eye');
 
-document.addEventListener('mousemove', e => {
+document.addEventListener('mousemove',(e)=>{
 
-    const cat = document.querySelector('.cat-overlay');
+    pupils.forEach(pupil=>{
 
-    const rect = cat.getBoundingClientRect();
+        const pupil = pupil.querySelector('.pupil');
 
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
+        const rect = pupil.getBoundingClientRect();
 
-    const dx = e.clientX - centerX;
-    const dy = e.clientY - centerY;
+        const pupilCenterX = rect.left + rect.width/2;
+        constpupilCenterY = rect.top + rect.height/2;
 
-    const distance = Math.sqrt(dx*dx + dy*dy);
+        const angle = Math.atan2(
+            e.clientY - pupilCenterY,
+            e.clientX - pupilCenterX
+        );
 
-    /* начинают следить только если курсор рядом */
+        const radius = 5;
 
-    if(distance < 300){
+        const x = Math.cos(angle) * radius;
+        const y = Math.sin(angle) * radius;
 
-        const angle = Math.atan2(dy, dx);
+        pupil.style.transform =
+            `translate(${x}px, ${y}px)`;
 
-        const moveX = Math.cos(angle) * 5;
-        const moveY = Math.sin(angle) * 5;
-
-        pupils.forEach(pupil => {
-
-            const baseX = pupil.classList.contains('pupil-left')
-                ? 63
-                : 103;
-
-            const baseY = pupil.classList.contains('pupil-left')
-                ? 132
-                : 122;
-
-            pupil.style.left = (baseX + moveX) + 'px';
-            pupil.style.top = (baseY + moveY) + 'px';
-
-        });
-
-    } else {
-
-        document.querySelector('.pupil-left').style.left = '63px';
-        document.querySelector('.pupil-left').style.top = '132px';
-
-        document.querySelector('.pupil-right').style.left = '103px';
-        document.querySelector('.pupil-right').style.top = '122px';
-    }
+    });
 
 });
 
