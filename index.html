@@ -1,23 +1,17 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portfolio</title>
-
-<!-- PRELOAD IMAGES -->
-<link rel="preload" as="image" href="PHOTO_300x400.jpg">
-<link rel="preload" as="image" href="PROJECT1.jpg">
-<link rel="preload" as="image" href="PROJECT2.jpg">
-<link rel="preload" as="image" href="PROJECT3.jpg">
-<link rel="preload" as="image" href="PROJECT4.jpg">
 
 <style>
 :root{
-  --bg:#f6f7fb;
-  --text:#1b1f2a;
+  --bg:#f7f8fc;
+  --text:#1d2330;
   --muted:#6b7280;
-  --accent:#4f7cff;
+  --accent:#5b7cff;
+  --radius:18px;
 }
 
 *{
@@ -25,67 +19,81 @@
   padding:0;
   box-sizing:border-box;
   font-family:system-ui;
+  cursor:none;
 }
 
 body{
   background:var(--bg);
   color:var(--text);
-  cursor:none;
+  overflow-x:hidden;
 }
 
+/* ===== CUSTOM CURSOR ===== */
+.cursor{
+  width:10px;
+  height:10px;
+  background:var(--accent);
+  border-radius:50%;
+  position:fixed;
+  top:0;
+  left:0;
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+  z-index:9999;
+}
+
+.cursor-ring{
+  width:30px;
+  height:30px;
+  border:1px solid var(--accent);
+  border-radius:50%;
+  position:fixed;
+  top:0;
+  left:0;
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+  transition:0.1s;
+  z-index:9998;
+}
 
 /* ===== NAV ===== */
 nav{
   position:fixed;
   top:0;
-  left:0;
   width:100%;
-  background:rgba(255,255,255,0.7);
-  backdrop-filter:blur(10px);
+  background:white;
   display:flex;
   justify-content:center;
-  gap:30px;
+  gap:25px;
   padding:15px;
   z-index:1000;
+  border-bottom:1px solid #eee;
 }
 
 nav a{
   text-decoration:none;
   color:var(--text);
   font-size:14px;
-  transition:.3s;
-}
-
-nav a:hover{
-  color:var(--accent);
 }
 
 /* ===== SECTIONS ===== */
 section{
-  padding:100px 10%;
+  padding:80px 10%;
 }
-
-h2{margin-bottom:20px}
 
 /* ===== ABOUT ===== */
 .about{
   display:flex;
+  justify-content:space-between;
   gap:40px;
   align-items:center;
-  justify-content:space-between;
 }
 
-.photo{
+.about img{
   width:300px;
   height:400px;
-  overflow:hidden;
-  border-radius:18px;
-}
-
-.photo img{
-  width:100%;
-  height:100%;
   object-fit:cover;
+  border-radius:16px;
 }
 
 /* ===== EXPERIENCE ===== */
@@ -93,7 +101,7 @@ h2{margin-bottom:20px}
   background:white;
   padding:20px;
   border-radius:16px;
-  margin-bottom:15px;
+  margin-top:15px;
 }
 
 /* ===== PROJECTS ===== */
@@ -101,40 +109,52 @@ h2{margin-bottom:20px}
   display:flex;
   gap:20px;
   overflow-x:auto;
-  scroll-snap-type:x mandatory;
   padding-bottom:10px;
+  scroll-snap-type:x mandatory;
 }
 
 .project{
   min-width:547px;
   height:500px;
   position:relative;
-  cursor:pointer;
   scroll-snap-align:start;
 }
 
-/* ❌ НЕТ ТЕНЕЙ И ОБВОДОК */
 .project img{
   width:100%;
   height:100%;
-  object-fit:cover;
   position:absolute;
-  transition:.4s ease;
+  object-fit:cover;
+  transition:0.4s;
 }
 
-.project img.hover{opacity:0}
-.project:hover img.hover{opacity:1}
-.project:hover img.main{opacity:0}
+.project img.hover{
+  opacity:0;
+}
+
+.project:hover img.hover{
+  opacity:1;
+}
+
+.project:hover img.main{
+  opacity:0;
+}
+
+/* NO SHADOWS OR BORDERS */
+.project{
+  box-shadow:none;
+  border:none;
+}
 
 /* ===== CASE VIEW ===== */
 .case{
   margin-top:30px;
-  padding:25px;
   background:white;
-  border-radius:18px;
+  padding:25px;
+  border-radius:16px;
   opacity:0;
   transform:translateY(20px);
-  transition:.4s;
+  transition:0.4s;
 }
 
 .case.active{
@@ -142,66 +162,80 @@ h2{margin-bottom:20px}
   transform:translateY(0);
 }
 
-/* ===== TOP BUTTON ===== */
-#topBtn{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  padding:10px 14px;
-  border:none;
+.case-gallery{
+  display:flex;
+  gap:10px;
+  margin-top:15px;
+}
+
+.case-gallery img{
+  width:33%;
+  height:180px;
+  object-fit:cover;
   border-radius:12px;
+}
+
+/* ===== TOP BUTTON ===== */
+.top-btn{
+  position:fixed;
+  bottom:30px;
+  right:30px;
   background:var(--accent);
   color:white;
-  cursor:pointer;
+  border:none;
+  padding:12px 16px;
+  border-radius:50px;
   display:none;
 }
 
-/* MOBILE */
+/* ===== MOBILE ===== */
 @media(max-width:768px){
-  .about{flex-direction:column}
-  .project{min-width:85%}
+  .about{
+    flex-direction:column;
+  }
+
+  .project{
+    min-width:85%;
+  }
+
+  .case-gallery{
+    flex-direction:column;
+  }
+
+  .case-gallery img{
+    width:100%;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="cursor" id="cursor"></div>
+<div class="cursor"></div>
+<div class="cursor-ring"></div>
 
-<!-- AUDIO -->
-<audio id="clickSound">
-  <!-- 🎧 ВСТАВЬ СЮДА ФАЙЛ ЗВУКА -->
-  <source src="the-sound-of-a-cat-quotmeowquot.mp3" type="audio/mpeg">
-</audio>
-
-<!-- NAV -->
 <nav>
   <a href="#about">Обо мне</a>
   <a href="#exp">Опыт</a>
-  <a href="#projects">Кейсы</a>
+  <a href="#works">Кейсы</a>
 </nav>
 
 <!-- ABOUT -->
 <section id="about">
-  <h2>Обо мне</h2>
-
   <div class="about">
-
     <div>
       <h1>Андриянова Екатерина</h1>
       <p>RUS / ENG (C1+)</p>
-      <p>Санкт-Петербург</p>
+      <p>СПб • designer</p>
       <p>famm22@yandex.ru | tg: katt_an</p>
-      <p>Графический и продуктовый дизайнер</p>
-      <p>
-        Я дизайнер с 1+ годом опыта в B2B продуктах...
+
+      <p style="margin-top:15px; color:var(--muted)">
+        Графический и продуктовый дизайнер...
       </p>
     </div>
 
-    <div class="photo">
-      <img src="PHOTO_300x400.jpg" />
-    </div>
-
+    <!-- 300x400 -->
+    <img src="PHOTO_300x400.jpg">
   </div>
 </section>
 
@@ -210,96 +244,131 @@ h2{margin-bottom:20px}
   <h2>Опыт</h2>
 
   <div class="card">
-    <h3>ЗАГОЛОВОК</h3>
+    <h3>Заголовок</h3>
     <p>Подзаголовок</p>
-    <p>Текст опыта</p>
+    <p>Текст</p>
   </div>
 
 </section>
 
 <!-- PROJECTS -->
-<section id="projects">
+<section id="works">
   <h2>Кейсы</h2>
 
   <div class="projects">
 
-    <div class="project" onclick="openCase(1); playSound()">
-      <img class="main" src="PROJECT1.jpg">
-      <img class="hover" src="PROJECT1_HOVER.jpg">
+    <div class="project" onclick="openCase(1)">
+      <img class="main" src="P1.jpg">
+      <img class="hover" src="P1H.jpg">
     </div>
 
-    <div class="project" onclick="openCase(2); playSound()">
-      <img class="main" src="PROJECT2.jpg">
-      <img class="hover" src="PROJECT2_HOVER.jpg">
+    <div class="project" onclick="openCase(2)">
+      <img class="main" src="P2.jpg">
+      <img class="hover" src="P2H.jpg">
     </div>
 
-    <div class="project" onclick="openCase(3); playSound()">
-      <img class="main" src="PROJECT3.jpg">
-      <img class="hover" src="PROJECT3_HOVER.jpg">
+    <div class="project" onclick="openCase(3)">
+      <img class="main" src="P3.jpg">
+      <img class="hover" src="P3H.jpg">
     </div>
 
-    <div class="project" onclick="openCase(4); playSound()">
-      <img class="main" src="PROJECT4.jpg">
-      <img class="hover" src="PROJECT4_HOVER.jpg">
+    <div class="project" onclick="openCase(4)">
+      <img class="main" src="P4.jpg">
+      <img class="hover" src="P4H.jpg">
     </div>
 
   </div>
 
-  <div class="case" id="caseBox">
-    <h2 id="ct">Заголовок</h2>
-    <p id="cs">Подзаголовок</p>
-    <p id="cx">Текст кейса</p>
+  <!-- CASE -->
+  <div id="case" class="case">
+    <h2 id="ct"></h2>
+    <p id="cs"></p>
+    <p id="ctext"></p>
+
+    <div class="case-gallery">
+      <!-- 3 IMAGES PER CASE -->
+      <img id="g1">
+      <img id="g2">
+      <img id="g3">
+    </div>
   </div>
+
 </section>
 
-<!-- TOP BUTTON -->
-<button id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+<button class="top-btn" id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">
 ↑ Наверх
 </button>
 
 <script>
+// ===== PRELOAD IMAGES =====
+const imgs = ["PHOTO_300x400.jpg","P1.jpg","P1H.jpg","P2.jpg","P2H.jpg","P3.jpg","P3H.jpg","P4.jpg","P4H.jpg"];
+imgs.forEach(src=>{ const i=new Image(); i.src=src; });
 
-/* ===== CURSOR ===== */
-const cursor = document.getElementById("cursor");
-document.addEventListener("mousemove", e=>{
-  cursor.style.left = e.clientX + "px";
-  cursor.style.top = e.clientY + "px";
-});
+// ===== SOUND =====
+const clickSound = new Audio("click.mp3"); // 👈 ВСТАВЬ ФАЙЛ ЗДЕСЬ
 
-/* ===== CASE DATA ===== */
-const cases = {
-  1:{t:"Кейс 1", s:"Подзаголовок 1", x:"Текст кейса 1"},
-  2:{t:"Кейс 2", s:"Подзаголовок 2", x:"Текст кейса 2"},
-  3:{t:"Кейс 3", s:"Подзаголовок 3", x:"Текст кейса 3"},
-  4:{t:"Кейс 4", s:"Подзаголовок 4", x:"Текст кейса 4"},
+// ===== CASE DATA =====
+const data={
+1:{
+title:"Кейс 1",
+sub:"Подзаголовок 1",
+text:"Описание кейса 1",
+g:["1a.jpg","1b.jpg","1c.jpg"]
+},
+2:{
+title:"Кейс 2",
+sub:"Подзаголовок 2",
+text:"Описание кейса 2",
+g:["2a.jpg","2b.jpg","2c.jpg"]
+},
+3:{
+title:"Кейс 3",
+sub:"Подзаголовок 3",
+text:"Описание кейса 3",
+g:["3a.jpg","3b.jpg","3c.jpg"]
+},
+4:{
+title:"Кейс 4",
+sub:"Подзаголовок 4",
+text:"Описание кейса 4",
+g:["4a.jpg","4b.jpg","4c.jpg"]
+}
 };
 
 function openCase(i){
-  document.getElementById("ct").innerText = cases[i].t;
-  document.getElementById("cs").innerText = cases[i].s;
-  document.getElementById("cx").innerText = cases[i].x;
+clickSound.play();
 
-  document.getElementById("caseBox").classList.add("active");
+const c=data[i];
+document.getElementById("ct").innerText=c.title;
+document.getElementById("cs").innerText=c.sub;
+document.getElementById("ctext").innerText=c.text;
+
+document.getElementById("g1").src=c.g[0];
+document.getElementById("g2").src=c.g[1];
+document.getElementById("g3").src=c.g[2];
+
+document.getElementById("case").classList.add("active");
+document.getElementById("case").scrollIntoView({behavior:"smooth"});
 }
 
-/* ===== SOUND ===== */
-function playSound(){
-  const s = document.getElementById("clickSound");
-  s.currentTime = 0;
-  s.play();
-}
+// ===== TOP BUTTON =====
+const btn=document.getElementById("topBtn");
 
-/* ===== TOP BUTTON ===== */
-const btn = document.getElementById("topBtn");
-
-window.addEventListener("scroll", ()=>{
-  if(window.scrollY > 600){
-    btn.style.display = "block";
-  } else {
-    btn.style.display = "none";
-  }
+window.addEventListener("scroll",()=>{
+btn.style.display=window.scrollY>600?"block":"none";
 });
 
+// ===== CUSTOM CURSOR =====
+const cursor=document.querySelector(".cursor");
+const ring=document.querySelector(".cursor-ring");
+
+document.addEventListener("mousemove",e=>{
+cursor.style.left=e.clientX+"px";
+cursor.style.top=e.clientY+"px";
+
+ring.style.left=e.clientX+"px";
+ring.style.top=e.clientY+"px";
+});
 </script>
 
 </body>
