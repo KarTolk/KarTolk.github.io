@@ -21,7 +21,91 @@
   box-sizing:border-box;
   font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
 }
+/* ===== REMOVE SHADOWS FOR PROJECTS ===== */
+.project{
+  box-shadow:none;
+  border:none;
+}
 
+/* ===== NAVIGATION ===== */
+.navbar{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  background:rgba(255,255,255,0.7);
+  backdrop-filter:blur(12px);
+  display:flex;
+  justify-content:center;
+  gap:30px;
+  padding:14px 0;
+  z-index:999;
+  border-bottom:1px solid rgba(0,0,0,0.05);
+}
+
+.navbar a{
+  text-decoration:none;
+  color:var(--text);
+  font-size:14px;
+  opacity:.7;
+  transition:.3s;
+}
+
+.navbar a:hover{
+  opacity:1;
+  color:var(--accent);
+}
+
+/* ===== BACK TO TOP BUTTON ===== */
+#toTop{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  background:var(--accent);
+  color:white;
+  border:none;
+  padding:12px 14px;
+  border-radius:50%;
+  cursor:pointer;
+  opacity:0;
+  transform:translateY(10px);
+  transition:.3s;
+  z-index:999;
+}
+
+#toTop.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* ===== CUSTOM CURSOR ===== */
+.cursor, .cursor-ring{
+  position:fixed;
+  top:0;
+  left:0;
+  pointer-events:none;
+  border-radius:50%;
+  z-index:1000;
+}
+
+.cursor{
+  width:8px;
+  height:8px;
+  background:var(--accent);
+}
+
+.cursor-ring{
+  width:30px;
+  height:30px;
+  border:1px solid var(--accent);
+  transition:transform .08s linear;
+}
+
+/* hover effect */
+a:hover ~ .cursor,
+.project:hover ~ .cursor{
+  transform:scale(2);
+}
 body{
   background:var(--bg);
   color:var(--text);
@@ -76,8 +160,8 @@ h1,h2,h3{
 }
 
 .photo{
-  width:600px;
-  height:800px;
+  width:300px;
+  height:400px;
   border-radius:var(--radius);
   background:#ddd;
   overflow:hidden;
@@ -184,8 +268,22 @@ h1,h2,h3{
 </head>
 
 <body>
+  <!-- NAVIGATION -->
+<div class="navbar">
+  <a href="#about">Обо мне</a>
+  <a href="#experience">Опыт</a>
+  <a href="#projects">Кейсы</a>
+</div>
+
+<!-- CUSTOM CURSOR -->
+<div class="cursor"></div>
+<div class="cursor-ring"></div>
+
+<!-- BACK TO TOP -->
+<button id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 <!-- ================= ABOUT ================= -->
+<section id="about" class="fade-in">
 <section class="fade-in">
   <div class="about">
 
@@ -221,6 +319,7 @@ h1,h2,h3{
 </section>
 
 <!-- ================= EXPERIENCE ================= -->
+<section id="experience">
 <section>
   <h2>Опыт работы</h2>
 
@@ -238,6 +337,7 @@ h1,h2,h3{
 </section>
 
 <!-- ================= PROJECTS ================= -->
+<section id="projects">
 <section>
   <h2>Кейсы</h2>
 
@@ -322,6 +422,39 @@ function openCase(id){
 
   view.scrollIntoView({behavior:"smooth", block:"center"});
 }
+  /* ===== BACK TO TOP ===== */
+const toTop = document.getElementById("toTop");
+
+window.addEventListener("scroll", () => {
+  if(window.scrollY > 300){
+    toTop.classList.add("show");
+  } else {
+    toTop.classList.remove("show");
+  }
+});
+
+/* ===== CUSTOM CURSOR ===== */
+const cursor = document.querySelector(".cursor");
+const ring = document.querySelector(".cursor-ring");
+
+document.addEventListener("mousemove", (e)=>{
+  cursor.style.transform = `translate(${e.clientX}px,${e.clientY}px)`;
+  ring.style.transform = `translate(${e.clientX-15}px,${e.clientY-15}px)`;
+});
+
+/* ===== PRELOAD IMAGES ===== */
+const imagesToPreload = [
+  "PROJECT1_547x500.jpg",
+  "PROJECT2_547x500.jpg",
+  "PROJECT3_547x500.jpg",
+  "PROJECT4_547x500.jpg",
+  "PUT_YOUR_PHOTO_600x800.jpg"
+];
+
+imagesToPreload.forEach(src=>{
+  const img = new Image();
+  img.src = src;
+});
 </script>
 
 </body>
