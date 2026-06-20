@@ -1,150 +1,20 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portfolio</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Portfolio - Andriyanova Ekaterina</title>
+
+<!-- PRELOAD IMAGES -->
+<link rel="preload" as="image" href="PHOTO_300x400.jpg">
+<link rel="preload" as="image" href="PROJECT1.jpg">
+<link rel="preload" as="image" href="PROJECT2.jpg">
+<link rel="preload" as="image" href="PROJECT3.jpg">
+<link rel="preload" as="image" href="PROJECT4.jpg">
 
 <style>
 :root{
   --bg:#f7f8fc;
-  --text:#1d2330;
-  --muted:#6b7280;
-  --accent:#5b7cff;
-  --radius:18px;
-}
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:system-ui;
-  cursor:none;
-}
-
-body{
-  background:var(--bg);
-  color:var(--text);
-  overflow-x:hidden;
-}
-
-/* ===== CUSTOM CURSOR ===== */
-.cursor{
-  width:10px;
-  height:10px;
-  background:var(--accent);
-  border-radius:50%;
-  position:fixed;
-  top:0;
-  left:0;
-  pointer-events:none;
-  transform:translate(-50%,-50%);
-  z-index:9999;
-}
-
-.cursor-ring{
-  width:30px;
-  height:30px;
-  border:1px solid var(--accent);
-  border-radius:50%;
-  position:fixed;
-  top:0;
-  left:0;
-  pointer-events:none;
-  transform:translate(-50%,-50%);
-  transition:0.1s;
-  z-index:9998;
-}
-
-/* ===== NAV ===== */
-nav{
-  position:fixed;
-  top:0;
-  width:100%;
-  background:white;
-  display:flex;
-  justify-content:center;
-  gap:25px;
-  padding:15px;
-  z-index:1000;
-  border-bottom:1px solid #eee;
-}
-
-nav a{
-  text-decoration:none;
-  color:var(--text);
-  font-size:14px;
-}
-
-/* ===== SECTIONS ===== */
-section{
-  padding:80px 10%;
-}
-
-/* ===== ABOUT ===== */
-.about{
-  display:flex;
-  justify-content:space-between;
-  gap:40px;
-  align-items:center;
-}
-
-.about img{
-  width:300px;
-  height:400px;
-  object-fit:cover;
-  border-radius:16px;
-}
-
-/* ===== EXPERIENCE ===== */
-.card{
-  background:white;
-  padding:20px;
-  border-radius:16px;
-  margin-top:15px;
-}
-
-/* ===== PROJECTS ===== */
-.projects{
-  display:flex;
-  gap:20px;
-  overflow-x:auto;
-  padding-bottom:10px;
-  scroll-snap-type:x mandatory;
-}
-
-.project{
-  min-width:547px;
-  height:500px;
-  position:relative;
-  scroll-snap-align:start;
-}
-
-.project img{
-  width:100%;
-  height:100%;
-  position:absolute;
-  object-fit:cover;
-  transition:0.4s;
-}
-
-.project img.hover{
-  opacity:0;
-}
-
-.project:hover img.hover{
-  opacity:1;
-}
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Portfolio</title>
-
-<style>
-:root{
-  --bg:#f6f7fb;
   --text:#1b1f2a;
   --muted:#6b7280;
   --accent:#4f7cff;
@@ -155,47 +25,68 @@ section{
   padding:0;
   box-sizing:border-box;
   font-family: -apple-system, BlinkMacSystemFont, Inter, sans-serif;
-  cursor:none;
+}
+
+html{
+  scroll-behavior:smooth;
 }
 
 body{
   background:var(--bg);
   color:var(--text);
-  scroll-behavior:smooth;
+  cursor:none;
 }
 
-/* ===== NAVBAR ===== */
+/* ================= CURSOR ================= */
+#cursor{
+  width:24px;
+  height:24px;
+  position:fixed;
+  top:0;
+  left:0;
+  pointer-events:none;
+  z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:transform .08s ease;
+}
+
+#cursor img{
+  width:100%;
+  height:100%;
+}
+
+/* ================= NAV ================= */
 nav{
   position:fixed;
   top:0;
   left:0;
   width:100%;
+  background:rgba(255,255,255,0.8);
+  backdrop-filter:blur(10px);
   display:flex;
   justify-content:center;
   gap:30px;
-  padding:15px;
-  background:rgba(255,255,255,0.8);
-  backdrop-filter: blur(10px);
+  padding:14px;
   z-index:1000;
 }
 
 nav a{
   text-decoration:none;
-  color:var(--muted);
+  color:var(--text);
   font-size:14px;
   transition:.3s;
 }
 
 nav a:hover{
-  color:var(--text);
+  color:var(--accent);
 }
 
-/* ===== SECTIONS ===== */
+/* ================= SECTIONS ================= */
 section{
   padding:100px 8%;
 }
 
-/* ===== ABOUT ===== */
+/* ================= ABOUT ================= */
 .about{
   display:flex;
   justify-content:space-between;
@@ -203,17 +94,13 @@ section{
   align-items:center;
 }
 
-.about-text{
-  max-width:600px;
+.about h1{
+  font-size:38px;
 }
 
-.about-text h1{
-  font-size:40px;
-}
-
-.about-text p{
+.about p{
   color:var(--muted);
-  margin-top:10px;
+  margin-top:8px;
   line-height:1.5;
 }
 
@@ -230,42 +117,62 @@ section{
   object-fit:cover;
 }
 
-/* ===== EXPERIENCE ===== */
-.exp{
-  margin-top:20px;
-  background:#fff;
+/* ================= EXPERIENCE ================= */
+.card{
+  background:white;
   padding:20px;
   border-radius:16px;
+  margin-top:20px;
+  transition:.3s;
 }
 
-/* ===== CASES ===== */
-.case{
-  margin-bottom:60px;
+.card:hover{
+  transform:translateY(-3px);
+}
+
+/* ================= PROJECTS ================= */
+.projects{
+  display:flex;
+  gap:20px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  padding-bottom:10px;
+}
+
+.project{
+  min-width:520px;
+  height:480px;
+  scroll-snap-align:start;
+  position:relative;
   cursor:pointer;
 }
 
-.case img{
+.project img{
   width:100%;
-  height:auto;
-  display:block;
-  margin-bottom:10px;
-  transition:transform .3s ease;
+  height:100%;
+  object-fit:cover;
+  position:absolute;
+  top:0;
+  left:0;
+  transition:opacity .4s ease;
 }
 
-.case:hover img{
-  transform:scale(1.02);
+.project img.hover{
+  opacity:0;
 }
 
-.caption{
-  font-size:14px;
-  color:var(--muted);
-  margin-bottom:20px;
+.project:hover img.hover{
+  opacity:1;
 }
 
-/* ===== CASE VIEW ===== */
-.case-view{
-  margin-top:50px;
-  background:#fff;
+.project:hover img.main{
+  opacity:0;
+}
+
+/* ================= CASE ================= */
+.case{
+  margin-top:40px;
+  background:white;
   padding:30px;
   border-radius:16px;
   opacity:0;
@@ -273,45 +180,58 @@ section{
   transition:.4s;
 }
 
-.case-view.active{
+.case.active{
   opacity:1;
   transform:translateY(0);
 }
 
-/* ===== TOP BUTTON ===== */
+/* IMAGES INSIDE CASE */
+.case-gallery{
+  margin-top:25px;
+  display:flex;
+  flex-direction:column;
+  gap:25px;
+}
+
+.case-gallery img{
+  width:100%;
+  border-radius:14px;
+}
+
+.case-gallery p{
+  font-size:14px;
+  color:var(--muted);
+  margin-top:6px;
+}
+
+/* ================= TOP BUTTON ================= */
 #topBtn{
   position:fixed;
   right:20px;
   bottom:20px;
-  background:#fff;
+  padding:12px 14px;
   border:none;
-  padding:12px 16px;
-  border-radius:50px;
-  box-shadow:0 10px 20px rgba(0,0,0,0.1);
+  border-radius:12px;
+  background:white;
   cursor:pointer;
   display:none;
-  z-index:999;
+  box-shadow:none;
 }
 
-/* ===== CURSOR ===== */
-#cursor{
-  position:fixed;
-  width:30px;
-  height:30px;
-  pointer-events:none;
-  transform:translate(-50%,-50%);
-  z-index:9999;
-}
-
-/* ===== MOBILE ===== */
+/* ================= MOBILE ================= */
 @media(max-width:900px){
   .about{
     flex-direction:column;
     align-items:flex-start;
   }
 
+  .project{
+    min-width:85%;
+    height:420px;
+  }
+
   nav{
-    gap:15px;
+    gap:16px;
     font-size:12px;
   }
 }
@@ -321,7 +241,13 @@ section{
 <body>
 
 <!-- CURSOR -->
-<img id="cursor" src="PUT_CURSOR_IMAGE.png" />
+<div id="cursor">
+  <!-- 👇 ВСТАВЬ КАРТИНКУ КУРСОРА -->
+  <img src="CURSOR_IMAGE.png">
+</div>
+
+<!-- CLICK SOUND -->
+<audio id="clickSound" src="CLICK_SOUND.mp3"></audio>
 
 <!-- NAV -->
 <nav>
@@ -334,20 +260,22 @@ section{
 <section id="about">
   <div class="about">
 
-    <div class="about-text">
+    <div>
       <h1>Андриянова Екатерина</h1>
       <p>RUS / ENG (C1+)</p>
       <p>Санкт-Петербург</p>
       <p>famm22@yandex.ru | tg: katt_an</p>
-      <p>Графический и продуктовый дизайнер</p>
-      <p>
-        Я дизайнер с 1+ годом опыта, работаю с B2B продуктами,
-        интерфейсами и системным дизайном.
+      <p style="margin-top:10px;">Графический и продуктовый дизайнер</p>
+
+      <p style="margin-top:15px;">
+        Я дизайнер с 1+ годом коммерческого опыта, фокусом на системное мышление и
+        работу со сложными B2B-продуктами.
       </p>
     </div>
 
     <div class="photo">
-      <img src="PHOTO_300x400.jpg"/>
+      <!-- PHOTO 300x400 -->
+      <img src="PHOTO_300x400.jpg">
     </div>
 
   </div>
@@ -357,107 +285,139 @@ section{
 <section id="exp">
   <h2>Опыт работы</h2>
 
-  <div class="exp">
+  <div class="card">
     <h3>ЗАГОЛОВОК</h3>
-    <p>ПОДЗАГОЛОВОК</p>
-    <p>ТЕКСТ ОПЫТА</p>
+    <p>Подзаголовок</p>
+    <p>Текст опыта</p>
   </div>
 </section>
 
 <!-- CASES -->
 <section id="cases">
-
   <h2>Кейсы</h2>
 
-  <!-- CASE 1 -->
-  <div class="case" onclick="openCase(1)">
-    <img src="CASE1_IMG1_1880x920.jpg">
-    <img src="CASE1_IMG2_1880x920.jpg">
-    <img src="CASE1_IMG3_1880x920.jpg">
-    <div class="caption">Подпись кейса 1</div>
+  <div class="projects">
+
+    <div class="project" onclick="openCase(1)">
+      <img class="main" src="PROJECT1.jpg">
+      <img class="hover" src="PROJECT1_HOVER.jpg">
+    </div>
+
+    <div class="project" onclick="openCase(2)">
+      <img class="main" src="PROJECT2.jpg">
+      <img class="hover" src="PROJECT2_HOVER.jpg">
+    </div>
+
+    <div class="project" onclick="openCase(3)">
+      <img class="main" src="PROJECT3.jpg">
+      <img class="hover" src="PROJECT3_HOVER.jpg">
+    </div>
+
+    <div class="project" onclick="openCase(4)">
+      <img class="main" src="PROJECT4.jpg">
+      <img class="hover" src="PROJECT4_HOVER.jpg">
+    </div>
+
   </div>
 
-  <!-- CASE 2 -->
-  <div class="case" onclick="openCase(2)">
-    <img src="CASE2_IMG1.jpg">
-    <img src="CASE2_IMG2.jpg">
-    <img src="CASE2_IMG3.jpg">
-    <div class="caption">Подпись кейса 2</div>
-  </div>
+  <div id="caseBox" class="case">
 
-  <!-- CASE VIEW -->
-  <div id="caseView" class="case-view">
-    <h2 id="title"></h2>
-    <h4 id="subtitle"></h4>
-    <p id="text"></p>
-  </div>
+    <h2 id="cTitle">Заголовок кейса</h2>
+    <p id="cSub" style="color:#6b7280;">Подзаголовок</p>
+    <p id="cText" style="margin-top:10px;">Текст кейса</p>
 
+    <!-- GALLERY -->
+    <div class="case-gallery">
+
+      <!-- IMAGE 1 -->
+      <div>
+        <!-- 👇 CASE IMAGE 1 -->
+        <img src="CASE1_IMG1_1880x920.jpg">
+        <p>Подпись к изображению 1</p>
+      </div>
+
+      <!-- IMAGE 2 -->
+      <div>
+        <img src="CASE1_IMG2_1880x920.jpg">
+        <p>Подпись к изображению 2</p>
+      </div>
+
+      <!-- IMAGE 3 -->
+      <div>
+        <img src="CASE1_IMG3_1880x920.jpg">
+        <p>Подпись к изображению 3</p>
+      </div>
+
+    </div>
+
+  </div>
 </section>
 
 <!-- TOP BUTTON -->
-<button id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-↑
-</button>
-
-<!-- SOUND -->
-<audio id="clickSound" src="click-sound.mp3"></audio>
+<button id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 <script>
 
-/* ===== DATA ===== */
-const cases = {
-  1:{
-    title:"КЕЙС 1",
-    subtitle:"Подзаголовок 1",
-    text:"Описание кейса 1"
-  },
-  2:{
-    title:"КЕЙС 2",
-    subtitle:"Подзаголовок 2",
-    text:"Описание кейса 2"
-  }
-};
-
-/* ===== OPEN CASE ===== */
-function openCase(id){
-  document.getElementById("title").innerText = cases[id].title;
-  document.getElementById("subtitle").innerText = cases[id].subtitle;
-  document.getElementById("text").innerText = cases[id].text;
-
-  document.getElementById("caseView").classList.add("active");
-
-  document.getElementById("clickSound").play();
-}
-
-/* ===== TOP BUTTON ===== */
-window.addEventListener("scroll",()=>{
-  const btn = document.getElementById("topBtn");
-  btn.style.display = window.scrollY > 400 ? "block":"none";
-});
-
-/* ===== CURSOR ===== */
+/* ================= CURSOR ================= */
 const cursor = document.getElementById("cursor");
 
-document.addEventListener("mousemove",(e)=>{
+document.addEventListener("mousemove", e=>{
   cursor.style.left = e.clientX + "px";
   cursor.style.top = e.clientY + "px";
 });
 
-/* ===== PRELOAD ===== */
-const images = [
-"PHOTO_300x400.jpg",
-"CASE1_IMG1_1880x920.jpg",
-"CASE1_IMG2_1880x920.jpg",
-"CASE1_IMG3_1880x920.jpg",
-"CASE2_IMG1.jpg",
-"CASE2_IMG2.jpg",
-"CASE2_IMG3.jpg",
-"PUT_CURSOR_IMAGE.png"
-];
+/* ================= SOUND ================= */
+const sound = document.getElementById("clickSound");
 
-images.forEach(src=>{
-  const img = new Image();
-  img.src = src;
+function playSound(){
+  sound.currentTime = 0;
+  sound.volume = 0.3;
+  sound.play();
+}
+
+/* ================= CASES ================= */
+const data = {
+  1:{
+    title:"Кейс 1",
+    sub:"Подзаголовок 1",
+    text:"Описание кейса 1"
+  },
+  2:{
+    title:"Кейс 2",
+    sub:"Подзаголовок 2",
+    text:"Описание кейса 2"
+  },
+  3:{
+    title:"Кейс 3",
+    sub:"Подзаголовок 3",
+    text:"Описание кейса 3"
+  },
+  4:{
+    title:"Кейс 4",
+    sub:"Подзаголовок 4",
+    text:"Описание кейса 4"
+  }
+};
+
+function openCase(id){
+  playSound();
+
+  document.getElementById("cTitle").innerText = data[id].title;
+  document.getElementById("cSub").innerText = data[id].sub;
+  document.getElementById("cText").innerText = data[id].text;
+
+  document.getElementById("caseBox").classList.add("active");
+}
+
+/* ================= TOP BUTTON ================= */
+const topBtn = document.getElementById("topBtn");
+
+window.addEventListener("scroll",()=>{
+  if(window.scrollY > 600){
+    topBtn.style.display="block";
+  } else {
+    topBtn.style.display="none";
+  }
 });
 </script>
 
