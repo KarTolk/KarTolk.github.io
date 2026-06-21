@@ -412,26 +412,63 @@ function playSound(){
 
 /* ================= CASES ================= */
 const data = {
+
   1:{
     title:"Кейс 1",
     sub:"Подзаголовок 1",
-    text:"Описание кейса 1"
+    text:"Описание кейса 1",
+
+    img1:"CASE1_IMG1.jpg",
+    img2:"CASE1_IMG2.jpg",
+    img3:"CASE1_IMG3.jpg",
+
+    cap1:"Подпись 1",
+    cap2:"Подпись 2",
+    cap3:"Подпись 3"
   },
+
   2:{
     title:"Кейс 2",
     sub:"Подзаголовок 2",
-    text:"Описание кейса 2"
+    text:"Описание кейса 2",
+
+    img1:"CASE2_IMG1.jpg",
+    img2:"CASE2_IMG2.jpg",
+    img3:"CASE2_IMG3.jpg",
+
+    cap1:"Подпись 1",
+    cap2:"Подпись 2",
+    cap3:"Подпись 3"
   },
+
   3:{
     title:"Кейс 3",
     sub:"Подзаголовок 3",
-    text:"Описание кейса 3"
+    text:"Описание кейса 3",
+
+    img1:"CASE3_IMG1.jpg",
+    img2:"CASE3_IMG2.jpg",
+    img3:"CASE3_IMG3.jpg",
+
+    cap1:"Подпись 1",
+    cap2:"Подпись 2",
+    cap3:"Подпись 3"
   },
+
   4:{
     title:"Кейс 4",
     sub:"Подзаголовок 4",
-    text:"Описание кейса 4"
+    text:"Описание кейса 4",
+
+    img1:"CASE4_IMG1.jpg",
+    img2:"CASE4_IMG2.jpg",
+    img3:"CASE4_IMG3.jpg",
+
+    cap1:"Подпись 1",
+    cap2:"Подпись 2",
+    cap3:"Подпись 3"
   }
+
 };
 
 function openCase(id){
@@ -440,7 +477,13 @@ function openCase(id){
   document.getElementById("cTitle").innerText = data[id].title;
   document.getElementById("cSub").innerText = data[id].sub;
   document.getElementById("cText").innerText = data[id].text;
+document.getElementById("caseImg1").src = data[id].img1;
+document.getElementById("caseImg2").src = data[id].img2;
+document.getElementById("caseImg3").src = data[id].img3;
 
+document.getElementById("caption1").innerText = data[id].cap1;
+document.getElementById("caption2").innerText = data[id].cap2;
+document.getElementById("caption3").innerText = data[id].cap3;
   document.getElementById("caseBox").classList.add("active");
 }
 
