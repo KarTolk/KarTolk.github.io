@@ -5,7 +5,343 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <link rel="icon" href="https://psv4.userapi.com/s/v1/d2/kckjnH34M6GxKlwPKvMdKvX-qHBJfxlXBemtt_I3Eamw3nmXvNzUnFZ-Xcn3LcmFxjS_JEOhKug5WssZ84gUATko3oOWBPeLb4U3yFp5Ypi2UzTquiE1cDZoxQoQAEkA5wgB4KR9P502/ikonka.png" type="image/png">
 <title>Portfolio - Andriyanova Ekaterina</title>
+const cases=[
 
+{
+
+preview:"PROJECT1.jpg",
+
+title:"Название кейса 1",
+
+subtitle:"Подзаголовок",
+
+text:`
+
+<h3>Описание</h3>
+
+<p>
+
+Здесь находится текст первого кейса.
+
+</p>
+
+`,
+
+gallery:[
+
+{
+
+img:"CASE1_1.jpg",
+
+caption:"Подпись"
+
+},
+
+{
+
+img:"CASE1_2.jpg",
+
+caption:"Подпись"
+
+},
+
+{
+
+img:"CASE1_3.jpg",
+
+caption:"Подпись"
+
+}
+
+]
+
+},
+
+{
+
+preview:"PROJECT2.jpg",
+
+title:"Название кейса 2",
+
+subtitle:"Подзаголовок",
+
+text:`<p>Описание второго кейса</p>`,
+
+gallery:[
+
+{
+
+img:"CASE2_1.jpg",
+
+caption:"Подпись"
+
+},
+
+{
+
+img:"CASE2_2.jpg",
+
+caption:"Подпись"
+
+},
+
+{
+
+img:"CASE2_3.jpg",
+
+caption:"Подпись"
+
+}
+
+]
+
+},
+
+{
+
+preview:"PROJECT3.jpg",
+
+title:"Название кейса 3",
+
+subtitle:"Подзаголовок",
+
+text:`<p>Описание третьего кейса</p>`,
+
+gallery:[
+
+{
+
+img:"CASE3_1.jpg",
+
+caption:""
+
+},
+
+{
+
+img:"CASE3_2.jpg",
+
+caption:""
+
+},
+
+{
+
+img:"CASE3_3.jpg",
+
+caption:""
+
+}
+
+]
+
+},
+
+{
+
+preview:"PROJECT4.jpg",
+
+title:"Название кейса 4",
+
+subtitle:"Подзаголовок",
+
+text:`<p>Описание четвертого кейса</p>`,
+
+gallery:[
+
+{
+
+img:"CASE4_1.jpg",
+
+caption:""
+
+},
+
+{
+
+img:"CASE4_2.jpg",
+
+caption:""
+
+},
+
+{
+
+img:"CASE4_3.jpg",
+
+caption:""
+
+}
+
+]
+
+}
+
+];
+
+let current=0;
+
+function drawPreview(){
+
+previewImage.src=cases[current].preview;
+
+previewTitle.textContent=cases[current].title;
+
+}
+
+drawPreview();
+
+function nextCase(){
+
+current++;
+
+if(current>=cases.length)
+
+current=0;
+
+document.querySelector(".case-card").animate([
+
+{
+
+opacity:.3,
+
+transform:"translateX(40px)"
+
+},
+
+{
+
+opacity:1,
+
+transform:"translateX(0)"
+
+}
+
+],{
+
+duration:250
+
+});
+
+drawPreview();
+
+}
+
+function prevCase(){
+
+current--;
+
+if(current<0)
+
+current=cases.length-1;
+
+document.querySelector(".case-card").animate([
+
+{
+
+opacity:.3,
+
+transform:"translateX(-40px)"
+
+},
+
+{
+
+opacity:1,
+
+transform:"translateX(0)"
+
+}
+
+],{
+
+duration:250
+
+});
+
+drawPreview();
+
+}
+
+function openCurrentCase(){
+
+const c=cases[current];
+
+caseContent.classList.add("active");
+
+caseTitle.textContent=c.title;
+
+caseSubtitle.textContent=c.subtitle;
+
+caseText.innerHTML=c.text;
+
+caseGallery.innerHTML="";
+
+c.gallery.forEach(i=>{
+
+caseGallery.innerHTML+=`
+
+<figure>
+
+<img class="zoom"
+
+src="${i.img}">
+
+<figcaption>
+
+${i.caption}
+
+</figcaption>
+
+</figure>
+
+`;
+
+});
+
+addZoom();
+
+caseContent.scrollIntoView({
+
+behavior:"smooth"
+
+});
+
+}
+
+function addZoom(){
+
+document.querySelectorAll(".zoom")
+
+.forEach(img=>{
+
+img.onclick=function(){
+
+viewer.classList.add("active");
+
+viewerImage.src=this.src;
+
+};
+
+});
+
+}
+
+viewer.onclick=function(e){
+
+if(e.target===viewer)
+
+viewer.classList.remove("active");
+
+};
+
+document.addEventListener("keydown",e=>{
+
+if(e.key==="Escape")
+
+viewer.classList.remove("active");
+
+});
 <!-- PRELOAD IMAGES -->
 <link rel="preload" as="image" href="https://psv4.userapi.com/s/v1/d2/18Bf7gtFS0RTg89E_e41xmSDOBKE1rrRg9VkuAELTvZoC1bNbJpYOySfatmlFdKG8c2YMG3p2tv_E2szolXcVuuJv6a98kspxOHVsp-Z_7EYD0o24egwKjqhlLfw_p_mHuZnX8q4u6Dz/IMG_20260614_131725_1.jpg">
 <link rel="preload" as="image" href="https://psv4.vkuserphoto.ru/s/v1/d2/MZNCemAUQL7CQekpjOUx5WtMizTZMdS6YGGiDK-alpF82Jme2ygPFEz1GaURpqsFpt6f0Cy96eLGLx9XSqKdPJB-BvZzCQA4_tfPH5jG9xQdoK5wdOAg7dJzobl669LAYN7uqHTkwmL8/IMG_0032.png">
@@ -202,38 +538,255 @@ section{
 }
 
 /* ================= CASE ================= */
-.case{
-  margin-top:40px;
-  background:white;
-  padding:30px;
-  border-radius:16px;
-  opacity:0;
-  transform:translateY(20px);
-  transition:.4s;
+
+ .case-slider{
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+gap:40px;
+
+margin-top:40px;
+
 }
 
-.case.active{
-  opacity:1;
-  transform:translateY(0);
+.arrow{
+
+width:55px;
+
+height:55px;
+
+border:none;
+
+border-radius:50%;
+
+font-size:30px;
+
+cursor:pointer;
+
+background:white;
+
+transition:.25s;
+
 }
 
-/* IMAGES INSIDE CASE */
-.case-gallery{
-  margin-top:25px;
-  display:flex;
-  flex-direction:column;
-  gap:25px;
+.arrow:hover{
+
+transform:scale(1.1);
+
 }
 
-.case-gallery img{
-  width:100%;
-  border-radius:14px;
+.case-card{
+
+width:547px;
+
+cursor:pointer;
+
+transition:.35s;
+
 }
 
-.case-gallery p{
-  font-size:14px;
-  color:var(--muted);
-  margin-top:6px;
+.case-card:hover{
+
+transform:translateY(-10px);
+
+}
+
+.case-card img{
+
+width:100%;
+
+height:500px;
+
+object-fit:cover;
+
+display:block;
+
+}
+
+.case-card h3{
+
+margin-top:18px;
+
+text-align:center;
+
+font-size:22px;
+
+}
+
+.case-content{
+
+margin-top:60px;
+
+display:none;
+
+animation:fade .4s;
+
+}
+
+.case-content.active{
+
+display:block;
+
+}
+
+.gallery{
+
+display:flex;
+
+flex-direction:column;
+
+gap:40px;
+
+margin-top:40px;
+
+}
+
+.gallery figure{
+
+margin:0;
+
+}
+
+.gallery img{
+
+width:100%;
+
+cursor:zoom-in;
+
+transition:.3s;
+
+}
+
+.gallery img:hover{
+
+opacity:.92;
+
+}
+
+.gallery figcaption{
+
+margin-top:10px;
+
+color:#666;
+
+}
+
+@keyframes fade{
+
+from{
+
+opacity:0;
+
+transform:translateY(30px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:none;
+
+}
+
+}
+
+/* FULLSCREEN */
+
+#viewer{
+
+position:fixed;
+
+inset:0;
+
+display:none;
+
+justify-content:center;
+
+align-items:center;
+
+background:rgba(0,0,0,.92);
+
+z-index:9999;
+
+}
+
+#viewer.active{
+
+display:flex;
+
+}
+
+#viewer img{
+
+max-width:95vw;
+
+max-height:95vh;
+
+object-fit:contain;
+
+animation:zoom .25s;
+
+}
+
+@keyframes zoom{
+
+from{
+
+transform:scale(.8);
+
+opacity:0;
+
+}
+
+to{
+
+transform:scale(1);
+
+opacity:1;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.case-slider{
+
+gap:10px;
+
+}
+
+.case-card{
+
+width:90vw;
+
+}
+
+.case-card img{
+
+height:auto;
+
+aspect-ratio:547/500;
+
+object-fit:contain;
+
+}
+
+.arrow{
+
+width:42px;
+
+height:42px;
+
+font-size:22px;
+
+}
+
 }
 #cText{
     margin-top:20px;
@@ -390,58 +943,48 @@ section{
 
 <!-- CASES -->
 <section id="cases">
-  <h2>Кейсы</h2>
 
-  <div class="projects">
+<h2>Кейсы</h2>
 
-    <div class="project" onclick="openCase(2)">
-      <img class="main" src="https://psv4.vkuserphoto.ru/s/v1/d2/MZNCemAUQL7CQekpjOUx5WtMizTZMdS6YGGiDK-alpF82Jme2ygPFEz1GaURpqsFpt6f0Cy96eLGLx9XSqKdPJB-BvZzCQA4_tfPH5jG9xQdoK5wdOAg7dJzobl669LAYN7uqHTkwmL8/IMG_0032.png">
-    </div>
+<div class="case-slider">
 
-    <div class="project" onclick="openCase(3)">
-      <img class="main" src="https://psv4.vkuserphoto.ru/s/v1/d2/t_eA7gyYtZxc-wA4M24g_xIjCUrGg0vAL56fN-kiSn2iN1JWem3WHWryYuC9bfXCOuftW2NMoSH9ieMNASW4ylXbiQ1gH1Uxp2jXxswne4Aih7-L--0EzYC8TW3Sggf_SfyBCOC8Lnw-/IMG_0046.png">
-    </div>
+    <button class="arrow" onclick="prevCase()">❮</button>
 
-    <div class="project" onclick="openCase(4)">
-      <img class="main" src="https://psv4.vkuserphoto.ru/s/v1/d2/li1V12Jt3RrixEFBMImYOK-dWPRhYIoCl5mBSLloO96r4zB_IVVi0U5RcHp8j2Z8oAfnRgnmSKLQdX2XhiQMy4K8Ooizau5DAzHeSxnS7i_ZB93t2_cjNhqa6aAagXJenmDszACqZ26g/IMG_0036.png">
-    </div>
+    <div class="case-card" onclick="openCurrentCase()">
 
-  </div>
+        <img id="previewImage" src="PROJECT1.jpg">
 
-  <div id="caseBox" class="case">
-
-    <h2 id="cTitle">Заголовок кейса</h2>
-    <p id="cSub" style="color:#6b7280;">Подзаголовок</p>
-    <div id="cText" style="margin-top:10px;">Текст кейса</div>
-
-    <!-- GALLERY -->
-    <div class="case-gallery">
-
-      <!-- IMAGE 1 -->
-      <div>
-     <img id="caseImg1" src="">
-<p id="caption1"></p>
-
-      </div>
-
-      <!-- IMAGE 2 -->
-      <div>
-       <img id="caseImg2" src="">
-<p id="caption2"></p>
-
-      </div>
-
-      <!-- IMAGE 3 -->
-      <div>
-      <img id="caseImg3" src="">
-<p id="caption3"></p>
-
-      </div>
+        <h3 id="previewTitle">
+            Название кейса
+        </h3>
 
     </div>
 
-  </div>
+    <button class="arrow" onclick="nextCase()">❯</button>
+
+</div>
+
+
+<div id="caseContent" class="case-content">
+
+    <h2 id="caseTitle"></h2>
+
+    <h4 id="caseSubtitle"></h4>
+
+    <div id="caseText"></div>
+
+    <div id="caseGallery" class="gallery"></div>
+
+</div>
+
 </section>
+
+
+<div id="viewer">
+
+    <img id="viewerImage">
+
+</div>
 
 <!-- TOP BUTTON -->
 <button id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
