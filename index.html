@@ -1,759 +1,1075 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Портфолио — Андриянова Екатерина | UI/UX дизайнер</title>
+<meta name="description" content="Портфолио UI/UX дизайнера: B2B-продукты, дизайн-системы, исследования и интерфейсы для вузов и игр. Санкт-Петербург.">
+<meta name="theme-color" content="#f5f6fb">
 <link rel="icon" href="ikonka.png" type="image/png">
-<title>Portfolio - Andriyanova Ekaterina</title>
 
-<!-- PRELOAD IMAGES -->
+<!-- Open Graph -->
+<meta property="og:title" content="Портфолио — Андриянова Екатерина">
+<meta property="og:description" content="UI/UX дизайнер. Кейсы: платформы для вуза, дизайн-системы, игровые интерфейсы.">
+<meta property="og:type" content="website">
+
+<!-- Шрифты -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Прелоад только главного фото (остальное ниже фолда — грузим лениво) -->
 <link rel="preload" as="image" href="IMG_20260614_131725_1.jpg">
-<link rel="preload" as="image" href="kot5.png">
-<link rel="preload" as="image" href="Vnutr.jpg">
-<link rel="preload" as="image" href="IMG_0036.png">
-<link rel="preload" as="image" href="банер_скрины 1.png">
-<link rel="preload" as="image" href="tracking.png">
 
 <style>
+/* ================= ПЕРЕМЕННЫЕ ================= */
 :root{
-  --bg:#f7f8fc;
-  --text:#1b1f2a;
-  --muted:#6b7280;
-  --accent:#4f7cff;
+  --bg:#f5f6fb;
+  --card:#ffffff;
+  --text:#181b25;
+  --muted:#697089;
+  --line:rgba(20,26,50,.08);
+  --accent:#4f6bff;
+  --accent-2:#8b5cf6;
+  --grad:linear-gradient(135deg,#4f6bff,#8b5cf6);
+  --chip-bg:#edf0fe;
+  --chip-text:#3d54d8;
+  --radius:20px;
+  --shadow-sm:0 2px 10px rgba(24,30,60,.05);
+  --shadow-md:0 10px 30px rgba(24,30,60,.09);
+  --nav-h:64px;
 }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family: -apple-system, BlinkMacSystemFont, Inter, sans-serif;
-}
+/* ================= БАЗА ================= */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 
 html{
   scroll-behavior:smooth;
+  scroll-padding-top:calc(var(--nav-h) + 24px);
 }
 
 body{
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   background:var(--bg);
   color:var(--text);
-  cursor:url('lapa.png') 2 2, auto;
+  font-size:16px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
 }
 
+/* Кастомный курсор — только на устройствах с мышью */
+@media (hover:hover) and (pointer:fine){
+  body{cursor:url('lapa.png') 2 2, auto}
+  a,button,.project{cursor:url('lapa.png') 2 2, pointer}
+}
 
-/* ================= NAV ================= */
-nav{
+img{display:block;max-width:100%}
+a{color:var(--accent)}
+
+::selection{background:rgba(79,107,255,.18)}
+
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+
+.container{
+  max-width:1160px;
+  margin-inline:auto;
+  padding-inline:clamp(16px,5vw,44px);
+}
+
+/* ================= НАВИГАЦИЯ ================= */
+.nav{
   position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  background:rgba(255,255,255,0.8);
-  backdrop-filter:blur(10px);
+  inset:0 0 auto 0;
+  z-index:1000;
   display:flex;
   justify-content:center;
-  gap:30px;
-  padding:14px;
-  z-index:1000;
+  padding:12px clamp(12px,3vw,24px);
+  pointer-events:none;
 }
-
-nav a{
+.nav-inner{
+  pointer-events:auto;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  background:rgba(255,255,255,.82);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:6px;
+  box-shadow:var(--shadow-sm);
+}
+.logo{
+  font-weight:800;
+  font-size:15px;
+  padding:8px 14px;
+  background:var(--grad);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  letter-spacing:.02em;
+  white-space:nowrap;
+}
+.nav-links{display:flex;gap:2px}
+.nav-links a{
   text-decoration:none;
   color:var(--text);
   font-size:14px;
+  font-weight:500;
+  padding:8px 16px;
+  border-radius:999px;
+  transition:color .25s, background .25s;
+}
+.nav-links a:hover{background:var(--chip-bg)}
+.nav-links a.active{color:var(--accent);background:var(--chip-bg)}
+
+/* Бургер */
+.burger{
+  display:none;
+  border:none;
+  background:transparent;
+  width:42px;height:42px;
+  border-radius:50%;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:5px;
+}
+.burger span{
+  display:block;
+  width:20px;height:2px;
+  background:var(--text);
+  border-radius:2px;
   transition:.3s;
 }
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
-nav a:hover{
-  color:var(--accent);
+@media (max-width:720px){
+  .burger{display:flex}
+  .nav-inner{
+    width:100%;
+    justify-content:space-between;
+    border-radius:18px;
+    padding:6px 8px 6px 6px;
+  }
+  .nav-links{
+    position:absolute;
+    top:calc(100% + 8px);
+    left:0;right:0;
+    flex-direction:column;
+    background:rgba(255,255,255,.96);
+    backdrop-filter:blur(14px);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:8px;
+    box-shadow:var(--shadow-md);
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-8px);
+    transition:.25s ease;
+  }
+  .nav-links.open{opacity:1;visibility:visible;transform:translateY(0)}
+  .nav-links a{padding:13px 16px;border-radius:12px;font-size:15px}
 }
 
-/* ================= SECTIONS ================= */
-section{
-  padding:20px 8%;
+/* ================= ОБЩЕЕ ДЛЯ СЕКЦИЙ ================= */
+section{padding:56px 0}
+
+.sec-head{margin-bottom:28px}
+.sec-num{
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  background:var(--grad);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.sec-head h2{
+  font-size:clamp(24px,3.4vw,34px);
+  font-weight:800;
+  letter-spacing:-.02em;
+  margin-top:4px;
 }
 
-/* ================= ABOUT ================= */
-.about{
-  display:flex;
-  justify-content:space-between;
-  gap:40px;
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow-sm);
+}
+
+/* Анимация появления при скролле */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease, transform .6s ease}
+.reveal.visible{opacity:1;transform:none}
+
+/* ================= ОБО МНЕ ================= */
+.about-grid{
+  display:grid;
+  grid-template-columns:1.35fr .9fr;
+  gap:clamp(28px,5vw,64px);
   align-items:center;
 }
 
-.about h1{
-  font-size:38px;
+.eyebrow{
+  display:inline-block;
+  font-size:13px;
+  font-weight:600;
+  color:var(--accent);
+  background:var(--chip-bg);
+  padding:6px 14px;
+  border-radius:999px;
+  margin-bottom:16px;
 }
 
-.about p{
+.about-grid h1{
+  font-size:clamp(30px,4.6vw,44px);
+  font-weight:800;
+  letter-spacing:-.03em;
+  line-height:1.15;
+}
+
+.about-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px 18px;
+  margin-top:16px;
   color:var(--muted);
-  margin-top:8px;
-  line-height:1.5;
+  font-size:14.5px;
 }
-.photo-wrapper{
-    position:relative;
-    display:inline-block;
+.about-meta a{color:inherit;text-decoration:none;border-bottom:1px dashed var(--line)}
+.about-meta a:hover{color:var(--accent);border-color:var(--accent)}
+
+.about-desc{margin-top:18px;color:var(--muted);max-width:56ch}
+
+.skills{margin-top:26px;display:grid;gap:18px}
+.skills h3{font-size:15px;margin-bottom:10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  font-size:13px;
+  font-weight:500;
+  color:var(--chip-text);
+  background:var(--chip-bg);
+  padding:6px 13px;
+  border-radius:999px;
+  border:1px solid transparent;
+  transition:.2s;
 }
+.chip:hover{border-color:currentColor;transform:translateY(-1px)}
 
-.photo{
-    width:300px;
-    height:400px;
-    object-fit:cover;
+/* Фото + котик */
+.about-photo{justify-self:center;position:relative}
+.photo-frame{
+  position:relative;
+  width:300px;
+  height:400px;
 }
-  
-.pupil{
-    position:absolute;
-    background:#000;
-    border-radius:80%;
-
-    transition:.05s linear;
-}
-
-
-.cat-overlay{
-    position:absolute;
-
-    top:-78px;
-    left:-100px;
-
-    width:400px;
-
-    pointer-events:none;
-}
-
-.cat-overlay img{
-    width:100%;
-    display:block;
-}
-
-.eye{
-    position:absolute;
-    width:17px;
-    height:20px;
-    border-radius:50%;
-    overflow:hidden;
-    pointer-events:none;
-}
-
- 
-.eye-left{
-    left:44px;
-    top:206px;
-    transform:rotate(-20deg);
-}
-
-.eye-right{
-    left:70px;
-    top:185px;
-    transform:rotate(20deg);
-}
-
-.eye .pupil{
-    width:12px;
-    height:12px;
-    top:50%;
-    left:50%;
-    margin-top:-5px;
-    margin-left:-5px;
-}
-
-.photo img{
-  width:100%;
-  height:100%;
+.photo-frame > img.photo{
+  width:100%;height:100%;
   object-fit:cover;
+  border-radius:24px;
+  border:1px solid var(--line);
+  box-shadow:var(--shadow-md);
+}
+.photo-deco{
+  position:absolute;
+  inset:auto -18px -18px auto;
+  width:120px;height:120px;
+  background:var(--grad);
+  opacity:.14;
+  filter:blur(2px);
+  border-radius:36px;
+  z-index:-1;
+}
+.cat-overlay{
+  position:absolute;
+  top:-78px;left:-100px;
+  width:400px;
+  pointer-events:none;
+  z-index:2;
+}
+.cat-overlay img{width:100%}
+.eye{
+  position:absolute;
+  width:17px;height:20px;
+  border-radius:50%;
+  overflow:hidden;
+  pointer-events:none;
+}
+.eye-left{left:44px;top:206px;transform:rotate(-20deg)}
+.eye-right{left:70px;top:185px;transform:rotate(20deg)}
+.eye .pupil{
+  position:absolute;
+  background:#000;
+  border-radius:80%;
+  width:12px;height:12px;
+  top:50%;left:50%;
+  margin-top:-5px;margin-left:-5px;
+  transition:transform .06s linear;
 }
 
-/* ================= EXPERIENCE ================= */
-.card{
-  background:white;
-  padding:20px;
-  border-radius:16px;
-  margin-top:10px;
-  transition:.3s;
+@media (max-width:880px){
+  .about-grid{grid-template-columns:1fr}
+  .about-photo{order:-1}
+  .photo-frame{width:min(300px,72vw);height:auto;aspect-ratio:3/4}
+}
+@media (max-width:380px){
+  .about-photo{transform:scale(.88)}
 }
 
+/* ================= ОПЫТ ================= */
+.exp-card{padding:clamp(20px,3vw,30px);margin-bottom:18px;transition:box-shadow .3s, transform .3s}
+.exp-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.exp-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.exp-head h3{font-size:17px;font-weight:700;line-height:1.4}
+.badge{
+  flex-shrink:0;
+  font-size:12.5px;
+  font-weight:600;
+  color:var(--chip-text);
+  background:var(--chip-bg);
+  padding:5px 12px;
+  border-radius:999px;
+  white-space:nowrap;
+}
+.exp-role{font-size:14.5px;font-weight:600;color:var(--accent);margin-top:4px}
+.exp-card ul{margin:14px 0 0;padding:0;list-style:none}
+.exp-card li{
+  position:relative;
+  padding-left:22px;
+  margin-bottom:10px;
+  color:#3c4257;
+  font-size:15px;
+}
+.exp-card li::before{
+  content:"—";
+  position:absolute;
+  left:0;
+  color:var(--accent);
+  font-weight:600;
+}
 
-/* ================= PROJECTS ================= */
+/* ================= ПРОЕКТЫ ================= */
+.projects-scroll{position:relative}
 .projects{
   display:flex;
   gap:20px;
   overflow-x:auto;
   scroll-snap-type:x mandatory;
-  padding-bottom:10px;
+  padding-bottom:14px;
+  scrollbar-width:thin;
+  scrollbar-color:#cdd3e6 transparent;
 }
-
+.projects::-webkit-scrollbar{height:6px}
+.projects::-webkit-scrollbar-thumb{background:#cdd3e6;border-radius:99px}
 
 .project{
-  min-width:520px;
-  height:480px;
-  scroll-snap-align:start;
   position:relative;
-  cursor:pointer;
+  flex-shrink:0;
+  width:min(520px,86vw);
+  aspect-ratio:547/500;
+  scroll-snap-align:start;
+  border-radius:var(--radius);
+  overflow:hidden;
+  border:1px solid var(--line);
+  background:var(--card);
+  box-shadow:var(--shadow-sm);
 }
-
-.project img{
-  width:100%;
-  height:100%;
+.project img.main{
+  width:100%;height:100%;
   object-fit:cover;
+  transition:transform .5s ease;
+}
+.project:hover img.main{transform:scale(1.03)}
+
+.project-overlay{
   position:absolute;
-  top:0;
-  left:0;
-  transition:opacity .4s ease;
-}
-  .projects img:hover{
-  transform:translateY(-3px);
-}
-
-/* ================= CASE ================= */
-.case{
-  margin-top:40px;
-  background:white;
-  padding:30px;
-  border-radius:16px;
-  opacity:0;
-  transform:translateY(20px);
-  transition:.4s;
-}
-
-.case.active{
-  opacity:1;
-  transform:translateY(0);
-}
-
-/* IMAGES INSIDE CASE */
-.case-gallery{
-  margin-top:25px;
+  inset:0;
   display:flex;
-  flex-direction:column;
-  gap:25px;
+  align-items:flex-end;
+  background:linear-gradient(to top, rgba(15,19,38,.75) 0%, rgba(15,19,38,0) 55%);
+  opacity:0;
+  transition:opacity .35s;
+}
+.project:hover .project-overlay,
+.project:focus-visible .project-overlay{opacity:1}
+.project-info{padding:22px;color:#fff;width:100%}
+.project-info h3{font-size:18px;font-weight:700}
+.project-info p{font-size:13.5px;opacity:.85;margin-top:2px}
+.project-open-btn{
+  display:inline-block;
+  margin-top:10px;
+  font-size:13px;
+  font-weight:600;
+  background:#fff;
+  color:var(--text);
+  padding:8px 16px;
+  border-radius:999px;
 }
 
+/* Стрелки прокрутки (десктоп) */
+.proj-arrow{
+  position:absolute;
+  top:50%;
+  translate:0 -50%;
+  z-index:5;
+  width:44px;height:44px;
+  border:none;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:var(--shadow-md);
+  font-size:18px;
+  color:var(--text);
+  display:grid;place-items:center;
+  transition:.2s;
+}
+.proj-arrow:hover{background:var(--accent);color:#fff}
+.proj-arrow.prev{left:-10px}
+.proj-arrow.next{right:-10px}
+@media (max-width:880px){.proj-arrow{display:none}}
+
+@media (max-width:880px){
+  .project{width:88vw}
+  .project img.main{object-fit:contain;background:#fff}
+  /* На тач-устройствах подпись видна всегда */
+  .project-overlay{opacity:1;background:linear-gradient(to top, rgba(15,19,38,.82) 0%, rgba(15,19,38,0) 42%)}
+  .project-info{padding:14px}
+  .project-info p,.project-open-btn{display:none}
+  .project-info h3{font-size:15px}
+}
+
+/* ================= ОТКРЫТЫЙ КЕЙС ================= */
+.case{
+  margin-top:34px;
+  padding:clamp(22px,4vw,44px);
+  position:relative;
+  opacity:0;
+  transform:translateY(24px);
+  transition:opacity .45s ease, transform .45s ease;
+}
+.case.show{opacity:1;transform:none}
+.case-close{
+  position:absolute;
+  top:16px;right:16px;
+  width:38px;height:38px;
+  border:none;
+  border-radius:50%;
+  background:var(--bg);
+  color:var(--text);
+  font-size:20px;
+  line-height:1;
+  transition:.2s;
+}
+.case-close:hover{background:var(--accent);color:#fff}
+
+#cSub{color:var(--muted);margin-top:8px;font-size:15px}
+#cText{margin-top:22px;color:#3c4257;font-size:15.5px}
+#cText h3{margin:30px 0 10px;font-size:21px;color:var(--text)}
+#cText p{margin-bottom:14px}
+#cText ul,#cText ol{margin:0 0 16px;padding-left:22px}
+#cText li{margin-bottom:8px}
+
+.case-gallery{margin-top:34px;display:flex;flex-direction:column;gap:30px}
+.case-gallery figure{max-width:860px}
 .case-gallery img{
   width:100%;
   border-radius:14px;
+  border:1px solid var(--line);
 }
-
-.case-gallery p{
-  font-size:14px;
+.case-gallery figcaption{
+  font-size:13.5px;
   color:var(--muted);
-  margin-top:6px;
-}
-#cText{
-    margin-top:20px;
-    line-height:1.8;
-    font-size:16px;
-    color:#444;
+  margin-top:10px;
+  text-align:center;
 }
 
-#cText h3{
-    margin-top:30px;
-    margin-bottom:10px;
-    font-size:24px;
-    color:#111;
-}
-
-#cText p{
-    margin-bottom:15px;
-}
-
-#cText ul{
-    padding-left:25px;
-    margin-bottom:20px;
-}
-
-#cText li{
-    margin-bottom:8px;
-}
-/* ================= TOP BUTTON ================= */
+/* ================= КНОПКА ВВЕРХ ================= */
 #topBtn{
   position:fixed;
-  right:20px;
-  bottom:20px;
-  padding:20px 20px;
+  right:20px;bottom:20px;
+  z-index:900;
+  width:48px;height:48px;
   border:none;
-  border-radius:18px;
-  background:white;
-  cursor:pointer;
-  display:none;
-  box-shadow:none;
+  border-radius:16px;
+  background:#fff;
+  color:var(--text);
+  font-size:20px;
+  box-shadow:var(--shadow-md);
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(10px);
+  transition:.3s;
 }
+#topBtn.show{opacity:1;visibility:visible;transform:none}
+#topBtn:hover{background:var(--accent);color:#fff}
 
-/* ================= MOBILE ================= */
-@media(max-width:900px){
-
-    .project{
-        min-width:90%;
-        height:auto;
-        aspect-ratio:547/500;
-    }
-
-    .project img{
-        object-fit:contain;
-        background:#fff;
-    }
-
+/* ================= ФУТЕР ================= */
+footer{
+  border-top:1px solid var(--line);
+  padding:28px 0 34px;
+  color:var(--muted);
+  font-size:14px;
 }
+.footer-inner{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+/* ================= ДОСТУПНОСТЬ ================= */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
+  .reveal{opacity:1;transform:none}
 }
 </style>
 </head>
 
 <body>
-<!-- CURSOR -->
-<div id="cursor">
-  <img src="CURSOR_IMAGE.png">
-</div>
 
-<!-- CLICK SOUND -->
-<audio id="clickSound" src="CLICK_SOUND.mp3"></audio>
+<!-- ================= НАВИГАЦИЯ ================= -->
+<nav class="nav">
+  <div class="nav-inner">
+    <span class="logo">kat.design</span>
 
-<!-- NAV -->
-<nav>
-  <a href="#about">Обо мне</a>
-  <a href="#exp">Опыт</a>
-  <a href="#cases">Кейсы</a>
+    <button class="burger" aria-label="Меню" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <div class="nav-links" id="menu">
+      <a href="#about">Обо мне</a>
+      <a href="#exp">Опыт</a>
+      <a href="#cases">Кейсы</a>
+      <a href="mailto:famm22@yandex.ru">Связаться</a>
+    </div>
+  </div>
 </nav>
 
-<!-- ABOUT -->
+<main>
+<!-- ================= ОБО МНЕ ================= -->
 <section id="about">
-  <div class="about">
+  <div class="container about-grid">
 
     <div>
+      <span class="eyebrow">UI/UX дизайнер</span>
       <h1>Андриянова Екатерина</h1>
-      <p>RUS / ENG (C1+)</p>
-      <p>Санкт-Петербург</p>
-      <p>famm22@yandex.ru | tg: katt_an</p>
-      <p style="margin-top:10px;">UI/UX дизайнер</p>
 
-      <p style="margin-top:15px;">
-       Я дизайнер с 1+ годом коммерческого опыта, фокусом <br>
-       на системное мышление и работу со сложными <br>
-       B2B-продуктами. Проектировала интерфейсы для вузов <br>
-        и инженерного ПО, а также создавала <br> визуальные решения для игр.
-       Умею выстраивать <br> логику с нуля, проводить глубинные 
-       интервью <br> и адаптировать интерфейс под реальные пользовательские сценарии. 
+      <div class="about-meta">
+        <span>📍 Санкт-Петербург</span>
+        <span>🌐 RUS / ENG&nbsp;(C1+)</span>
+        <a href="mailto:famm22@yandex.ru">✉️ famm22@yandex.ru</a>
+        <a href="https://t.me/katt_an" target="_blank" rel="noopener">💬 tg: @katt_an</a>
+      </div>
+
+      <p class="about-desc">
+        Я дизайнер с 1+ годом коммерческого опыта, с фокусом на системное мышление
+        и работу со сложными B2B-продуктами. Проектировала интерфейсы для вузов
+        и инженерного ПО, а также создавала визуальные решения для игр.
+        Умею выстраивать логику с нуля, проводить глубинные интервью
+        и адаптировать интерфейс под реальные пользовательские сценарии.
       </p>
-      <p style="margin-top:20 px;"> 
-      <h2>Навыки </h2>
-- Глубинные интервью, юзабилити-тестирование, CJM, User Flow, анализ пользовательского поведения<br>
-- Проектирование архитектуры продукта<br>
-- Работа с метриками: NPS, время выполнения задач, конверсия<br>
-- Иллюстрирование, умение рисовать рукой, подчищать за нейронкой<br>
-- Ускорение процессов с помощью AI-агентов<br>
-- Создание дизайн-систем и UI-kit с нуля<br>
-- Прототипирование (от low-fi до интерактивных прототипов)<br>
-- Адаптивный дизайн </p>
-<p style="margin-top:25 px;"> 
-<h2>Инструменты</h2>
- - Figma, FigJam, Tilda, Canva<br>
-- Miro, Notion<br>
-- Adobe Illustrator, Photoshop<br>
-- GitHub, Midjourney, ChatGPT 
-  </p>
-    </div>
-<div class="photo-wrapper">
 
-    <img class="photo" src="IMG_20260614_131725_1.jpg" alt="Фото">
-    <div class="cat-overlay">
-
-   <div class="eye eye-left">
-            <div class="pupil"></div>
+      <div class="skills">
+        <div>
+          <h3>Навыки</h3>
+          <div class="chips">
+            <span class="chip">Глубинные интервью</span>
+            <span class="chip">Юзабилити-тестирование</span>
+            <span class="chip">CJM</span>
+            <span class="chip">User Flow</span>
+            <span class="chip">Анализ поведения</span>
+            <span class="chip">Архитектура продукта</span>
+            <span class="chip">NPS и метрики</span>
+            <span class="chip">Дизайн-системы и UI-kit с нуля</span>
+            <span class="chip">Прототипирование: от low-fi до интерактива</span>
+            <span class="chip">Адаптивный дизайн</span>
+            <span class="chip">Иллюстрирование</span>
+            <span class="chip">AI-агенты для ускорения процессов</span>
+          </div>
         </div>
-        <div class="eye eye-right">
-            <div class="pupil"></div>
-        </div>  
-  
-        <img src="kot5.png" alt="Cat">
-
+        <div>
+          <h3>Инструменты</h3>
+          <div class="chips">
+            <span class="chip">Figma</span>
+            <span class="chip">FigJam</span>
+            <span class="chip">Tilda</span>
+            <span class="chip">Canva</span>
+            <span class="chip">Miro</span>
+            <span class="chip">Notion</span>
+            <span class="chip">Adobe Illustrator</span>
+            <span class="chip">Photoshop</span>
+            <span class="chip">GitHub</span>
+            <span class="chip">Midjourney</span>
+            <span class="chip">ChatGPT</span>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <!-- Фото + котик -->
+    <div class="about-photo">
+      <div class="photo-deco"></div>
+      <div class="photo-frame">
+        <img class="photo" src="IMG_20260614_131725_1.jpg" alt="Фотография Екатерины">
+        <div class="cat-overlay">
+          <img src="kot5.png" alt="">
+          <div class="eye eye-left"><div class="pupil"></div></div>
+          <div class="eye eye-right"><div class="pupil"></div></div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
-<!-- EXPERIENCE -->
+
+<!-- ================= ОПЫТ ================= -->
 <section id="exp">
-  <h2>Опыт работы</h2>
+  <div class="container">
+    <header class="sec-head reveal">
+      <span class="sec-num">01 — Опыт</span>
+      <h2>Опыт работы</h2>
+    </header>
 
-  <div class="card">
-    <h3> Удмуртский государственный университет / Проектная деятельность / Апрель 2025 г. – Ноябрь 2025 г. </h3>
-    <h4> UI/UX дизайнер </h4>
-    <p>Внутренний сайт для преподавателей вуза <br>
-— Провела 12 глубинных интервью с преподавателями и методистами, построила CJM и user flow ключевых сценариев. На основе полученных данных спроектировала архитектуру сайта и кликабельный прототип в Figma. Организовала модерируемое юзабилити-тестирование на 7 пользователях. Теперь у ВУЗа есть общая удобная система-библиотека для документооборота 
-<br> Платформа тестирования мигрантов<br>
-— С нуля спроектировала веб-платформу для тестирования мигрантов для получения гражданства, которая заменит бумажные и разрозненные процедуры, обеспечив прозрачность результатов и снизив нагрузку на проверяющих (автоматизация проверки результатов).
-<br> — Провела анализ конкурентов и мировых аналогов, взяла интервью у сотрудников. На основе этого спроектировала интерфейс и логику всей системы. Проект находится в последних стадиях разработки. Сайт проекта пока не доступен для сторонних пользователей <a href="http://tigr.conf.udsu.ru/login">Ссылка на проект</a>
-</p>
-  </div>
+    <article class="card exp-card reveal">
+      <div class="exp-head">
+        <h3>Удмуртский государственный университет · Проектная деятельность</h3>
+        <span class="badge">апр 2025 – ноя 2025</span>
+      </div>
+      <p class="exp-role">UI/UX дизайнер</p>
+      <ul>
+        <li>
+          <strong>Внутренний сайт для преподавателей вуза.</strong>
+          Провела 12 глубинных интервью с преподавателями и методистами, построила CJM
+          и user flow ключевых сценариев. На основе данных спроектировала архитектуру сайта
+          и кликабельный прототип в Figma. Организовала модерируемое юзабилити-тестирование
+          на 7 пользователях. Итог — единая удобная система-библиотека для документооборота.
+        </li>
+        <li>
+          <strong>Платформа тестирования мигрантов.</strong>
+          С нуля спроектировала веб-платформу для тестирования мигрантов при получении
+          гражданства, заменившую бумажные и разрозненные процедуры: прозрачность результатов
+          и автоматизация проверки снизили нагрузку на проверяющих. Провела анализ конкурентов
+          и мировых аналогов, интервью у сотрудников; спроектировала интерфейс и логику всей
+          системы. Проект на финальных стадиях разработки
+          (<a href="http://tigr.conf.udsu.ru/login" target="_blank" rel="noopener">ссылка на проект</a>).
+        </li>
+      </ul>
+    </article>
 
-  <div class="card">
-    <h3> NDA / Проектная деятельность/ Ноябрь 2025 г. – Июнь 2026 г. </h3>
-    <h4>UI/UX дизайнер</h4>
-    <p>— Работала с инженерным B2B продуктом с устаревшим дизайнерским легаси, где создавала и обновляла дизайн-систему. Создавала иконографику с нуля для сложных функций, а также подстраивалась под то, что продукт взаимодействует с кнопками. Потом был запуск нового продукта в той же линейке, где я уже опиралась на созданную дизайн-систему. Провела аудит интерфейсов и опрос разработчиков. Внедрение дизайн-системы сократило время на вёрстку на разные устройства на 20% и повысило визуальную согласованность линейки продуктов.</p>
+    <article class="card exp-card reveal">
+      <div class="exp-head">
+        <h3>NDA · Инженерное ПО · Проектная деятельность</h3>
+        <span class="badge">ноя 2025 – июнь 2026</span>
+      </div>
+      <p class="exp-role">UI/UX дизайнер</p>
+      <ul>
+        <li>
+          Работала с инженерным B2B-продуктом с устаревшим дизайнерским легаси:
+          создавала и обновляла дизайн-систему, разрабатывала иконографику с нуля
+          для сложных функций.
+        </li>
+        <li>
+          Участвовала в запуске нового продукта линейки, опираясь на созданную
+          дизайн-систему. Провела аудит интерфейсов и опрос разработчиков.
+        </li>
+        <li>
+          Результат: внедрение дизайн-системы сократило время вёрстки под разные устройства
+          на <strong>20%</strong> и повысило визуальную согласованность линейки продуктов.
+        </li>
+      </ul>
+    </article>
   </div>
 </section>
 
-<!-- CASES -->
+<!-- ================= КЕЙСЫ ================= -->
 <section id="cases">
-  <h2>Кейсы</h2>
+  <div class="container">
+    <header class="sec-head reveal">
+      <span class="sec-num">02 — Кейсы</span>
+      <h2>Избранные проекты</h2>
+    </header>
 
-  <div class="projects">
+    <div class="projects-scroll reveal">
+      <button class="proj-arrow prev" id="prevBtn" aria-label="Предыдущий проект">←</button>
 
-    <div class="project" onclick="openCase(2)">
-      <img class="main" src="банер_скрины 1.png">
-    </div>
+      <div class="projects" id="projTrack">
 
-    <div class="project" onclick="openCase(3)">
-      <img class="main" src="Vnutr.jpg">
-    </div>
+        <div class="project" role="button" tabindex="0" data-case="2"
+             aria-label="Открыть кейс: Платформа тестирования мигрантов">
+          <img class="main" src="банер_скрины 1.png" alt="Баннер платформы тестирования мигрантов">
+          <div class="project-overlay">
+            <div class="project-info">
+              <h3>Платформа тестирования мигрантов</h3>
+              <p>Создание системы с нуля</p>
+              <span class="project-open-btn">Смотреть кейс →</span>
+            </div>
+          </div>
+        </div>
 
-    <div class="project" onclick="openCase(4)">
-      <img class="main" src="концепты.png">
-  
-    </div>
- <div class="project" onclick="openCase(5)">
-      <img class="main" src="IMG_0036.png">
-    </div>
-  </div>
+        <div class="project" role="button" tabindex="0" data-case="3"
+             aria-label="Открыть кейс: Внутренняя база документации вуза">
+          <img class="main" src="Vnutr.jpg" alt="Интерфейс внутренней базы документации" loading="lazy">
+          <div class="project-overlay">
+            <div class="project-info">
+              <h3>База документации для вуза</h3>
+              <p>Исследование, CJM, дизайн-система</p>
+              <span class="project-open-btn">Смотреть кейс →</span>
+            </div>
+          </div>
+        </div>
 
-  <div id="caseBox" class="case">
+        <div class="project" role="button" tabindex="0" data-case="4"
+             aria-label="Открыть кейс: UI продуктовые концепты">
+          <img class="main" src="концепты.png" alt="UI-концепты экранов" loading="lazy">
+          <div class="project-overlay">
+            <div class="project-info">
+              <h3>UI продуктовые концепты</h3>
+              <p>Шоты реализованных экранов</p>
+              <span class="project-open-btn">Смотреть кейс →</span>
+            </div>
+          </div>
+        </div>
 
-    <h2 id="cTitle">Заголовок кейса</h2>
-    <p id="cSub" style="color:#6b7280;">Подзаголовок</p>
-    <div id="cText" style="margin-top:10px;">Текст кейса</div>
-
-    <!-- GALLERY -->
-    <div class="case-gallery">
-
-      <!-- IMAGE 1 -->
-      <div>
-     <img id="caseImg1" src="">
-<p id="caption1"></p>
+        <div class="project" role="button" tabindex="0" data-case="5"
+             aria-label="Открыть кейс: Личные проекты и хакатоны">
+          <img class="main" src="IMG_0036.png" alt="Игровые интерфейсы" loading="lazy">
+          <div class="project-overlay">
+            <div class="project-info">
+              <h3>Личные проекты</h3>
+              <p>Геймджемы и игровые интерфейсы</p>
+              <span class="project-open-btn">Смотреть кейс →</span>
+            </div>
+          </div>
+        </div>
 
       </div>
 
-      <!-- IMAGE 2 -->
-      <div>
-       <img id="caseImg2" src="">
-<p id="caption2"></p>
-
-      </div>
-
-      <!-- IMAGE 3 -->
-      <div>
-      <img id="caseImg3" src="">
-<p id="caption3"></p>
-
-      </div>
-
+      <button class="proj-arrow next" id="nextBtn" aria-label="Следующий проект">→</button>
     </div>
 
+    <!-- Открывающийся кейс -->
+    <div id="caseBox" class="card case" hidden>
+      <button class="case-close" id="caseClose" aria-label="Закрыть кейс">×</button>
+      <span class="sec-num">Кейс</span>
+      <h2 id="cTitle"></h2>
+      <p id="cSub"></p>
+      <div id="cText"></div>
+
+      <div class="case-gallery">
+        <figure><img id="caseImg1" src="" alt="" loading="lazy"><figcaption id="caption1"></figcaption></figure>
+        <figure><img id="caseImg2" src="" alt="" loading="lazy"><figcaption id="caption2"></figcaption></figure>
+        <figure><img id="caseImg3" src="" alt="" loading="lazy"><figcaption id="caption3"></figcaption></figure>
+      </div>
+    </div>
   </div>
 </section>
+</main>
 
-<!-- TOP BUTTON -->
-<button id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<footer>
+  <div class="container footer-inner">
+    <span>© 2026 Андриянова Екатерина</span>
+    <span><a href="mailto:famm22@yandex.ru">famm22@yandex.ru</a> · <a href="https://t.me/katt_an" target="_blank" rel="noopener">@katt_an</a></span>
+  </div>
+</footer>
+
+<button id="topBtn" aria-label="Наверх">↑</button>
 
 <script>
+'use strict';
+const $  = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const canHover = matchMedia('(hover:hover) and (pointer:fine)').matches;
 
-/* ================= CURSOR ================= */
-const cursor = document.getElementById("cursor");
+/* ================= МОБИЛЬНОЕ МЕНЮ ================= */
+const burger = $('.burger');
+const menu   = $('#menu');
 
-document.addEventListener("mousemove", e=>{
-  cursor.style.left = e.clientX + "px";
-  cursor.style.top = e.clientY + "px";
+burger.addEventListener('click', () => {
+  const open = menu.classList.toggle('open');
+  burger.setAttribute('aria-expanded', open);
+});
+menu.addEventListener('click', e => {
+  if (e.target.tagName === 'A') {
+    menu.classList.remove('open');
+    burger.setAttribute('aria-expanded', 'false');
+  }
 });
 
-/* ================= SOUND ================= */
-const sound = document.getElementById("clickSound");
+/* ================= АКТИВНЫЙ ПУНКТ МЕНЮ ================= */
+const navLinks = $$('.nav-links a[href^="#"]');
+const secObserver = new IntersectionObserver(entries => {
+  entries.forEach(en => {
+    if (!en.isIntersecting) return;
+    navLinks.forEach(a =>
+      a.classList.toggle('active', a.getAttribute('href') === '#' + en.target.id));
+  });
+}, { rootMargin: '-40% 0px -55% 0px' });
+['about','exp','cases'].forEach(id => secObserver.observe(document.getElementById(id)));
 
-function playSound(){
-  sound.currentTime = 0;
-  sound.volume = 0.3;
-  sound.play();
-}
+/* ================= ПОЯВЛЕНИЕ ПРИ СКРОЛЛЕ ================= */
+const revealObserver = new IntersectionObserver((entries, obs) => {
+  entries.forEach(en => {
+    if (en.isIntersecting) {
+      en.target.classList.add('visible');
+      obs.unobserve(en.target);
+    }
+  });
+}, { threshold: .12 });
+$$('.reveal').forEach(el => revealObserver.observe(el));
 
-/* ================= CASES ================= */
-const data = {
+/* ================= ДАННЫЕ КЕЙСОВ ================= */
+const casesData = {
 
   2:{
-    title:"Платформа тестирования мигрантов",
-    sub:"Создание системы с нуля",
-    text:`<h3>Контекст проекта</h3>
-<p>
-Введение нового требования о цифровизации экзаменов для мигрантов, вызвало у университета нужду в том, чтобы создать такую систему. Пользователи — люди с разным уровнем владения русским языком и цифровой грамотностью. Тестирование и отчетность имеет юридические последствия и поэтому корректная интерпретация результата критична.
-<p>
-До старта проекта тестирование проводилось бумажно, что вызывало путаницу и у самих мигрантов, и у проверяющих. Решение создать единую цифровую платформу с нуля должно было охватить три сегмента пользователей: мигрантов, сдающих тест, сотрудников и методистов, разрабатывающих и проверяющих задания.
-</p>
+    title:'Платформа тестирования мигрантов',
+    sub:'Создание системы с нуля',
+    text:`
+<h3>Контекст проекта</h3>
+<p>Введение нового требования о цифровизации экзаменов для мигрантов вызвало у университета потребность создать такую систему. Пользователи — люди с разным уровнем владения русским языком и цифровой грамотностью. Тестирование и отчётность имеют юридические последствия, поэтому корректная интерпретация результата критична.</p>
+<p>До старта проекта тестирование проводилось бумажно, что вызывало путаницу у самих мигрантов и проверяющих. Решение — единая цифровая платформа с нуля, охватывающая три сегмента пользователей: мигрантов, сдающих тест, сотрудников и методистов, разрабатывающих и проверяющих задания.</p>
 
 <h3>Задача</h3>
-<p>
-Спроектировать с нуля логику, интерфейс и внутреннюю систему платформы, которая объединит проведение теста, автоматическую проверку, выдачу результата и административную панель.
-</p>
+<p>Спроектировать с нуля логику, интерфейс и внутреннюю систему платформы, которая объединит проведение теста, автоматическую проверку, выдачу результата и административную панель.</p>
 <ul>
-  <li>Снизить время проверки одного теста сотрудниками.</li>
-  <li>Создать масштабируемую архитектуру, готовую к расширению на другие регионы.</li>
+<li>Снизить время проверки одного теста сотрудниками.</li>
+<li>Создать масштабируемую архитектуру, готовую к расширению на другие регионы.</li>
 </ul>
 
 <h3>Исследование</h3>
 <ul>
-  <li><strong>Конкурентный анализ:</strong> изучены 5 прямых и косвенных аналогов: государственные порталы тестирования, коммерческие языковые платформы и российские системы оценки квалификации.</li>
-  <li>Проведены 6 полуструктурированных интервью с будущими пользователями внутренней системы.</li>
+<li><strong>Конкурентный анализ:</strong> изучены 5 прямых и косвенных аналогов — государственные порталы тестирования, коммерческие языковые платформы и российские системы оценки квалификации.</li>
+<li>Проведены 6 полуструктурированных интервью с будущими пользователями внутренней системы.</li>
 </ul>
 
 <h3>Решение</h3>
 <p><strong>Модуль тестируемого</strong></p>
 <ul>
-  <li>Интуитивный пошаговый интерфейс: вход по коду, вспомогательный экран перед тестом.  </li>
-  <li>Сам тест — вопросы на экране(с отметками о прохождении), крупные кнопки ответов, таймер.  </li>
+<li>Интуитивный пошаговый интерфейс: вход по коду, вспомогательный экран перед тестом.</li>
+<li>Сам тест — вопросы на экране с отметками о прохождении, крупные кнопки ответов, таймер.</li>
 </ul>
 <p><strong>Панель сотрудника</strong></p>
 <ul>
-  <li>Быстрый просмотр истории попыток конкретного мигранта: дата, балл, статус «сдал/не сдал» и занесение мигранта в базу.</li>
-  <li>Режим наблюдателя на экзамене: таймер, прогресс каждого мигранта, снять с теста из-за нарушения.</li>
+<li>Быстрый просмотр истории попыток конкретного мигранта: дата, балл, статус «сдал / не сдал», занесение в базу.</li>
+<li>Режим наблюдателя на экзамене: таймер, прогресс каждого мигранта, снятие с теста из-за нарушения.</li>
 </ul>
-
-<p>
-Все решения оформлены в единую дизайн-систему в Figma: крупная типографика и библиотека компонентов для ускорения разработки.
-</p>
+<p>Все решения оформлены в единую дизайн-систему в Figma: крупная типографика и библиотека компонентов для ускорения разработки.</p>
 
 <h3>Тестирование</h3>
 <ul>
-  <li>Собран интерактивный прототип всего пользовательского пути мигранта: от входа до результата.</li>
-  <li>Сотрудники выполняли сценарии подготовки к экзамену, сам экзамен и отчетность по нему. </li>
+<li>Собран интерактивный прототип всего пользовательского пути мигранта: от входа до результата.</li>
+<li>Сотрудники выполняли сценарии подготовки к экзамену, сам экзамен и отчётность по нему.</li>
 </ul>
 
 <h3>Результаты</h3>
 <ul>
-  <li>Платформа проходит этап тестирования, готовится выход только в УДГУ, но обсуждается и дальнейшее развитие.</li>
-  <li>Среднее время проверки одного теста сократилось с 8 до 3 минут (-60%).</li>
-  <li>Сотрудникам теперь нужно вручную проверять только тесты с открытым ответом.</li>
+<li>Платформа проходит этап тестирования, готовится выход только в УдГУ, обсуждается дальнейшее развитие.</li>
+<li>Среднее время проверки одного теста сократилось с 8 до 3 минут (<strong>−60%</strong>).</li>
+<li>Сотрудникам нужно вручную проверять только тесты с открытым ответом.</li>
 </ul>`,
-    img1:"user flow.png",
-    img2:"скрин1.png",
-    img3:"скрин2.png",
-
-    cap1:"User flow",
-    cap2:"Страница сайта",
-    cap3:"Добавление экзамена в календарь"
+    img1:'user flow.png',  cap1:'User flow',
+    img2:'скрин1.png',     cap2:'Страница сайта',
+    img3:'скрин2.png',     cap3:'Добавление экзамена в календарь'
   },
 
   3:{
-    title:"Внутренняя база документации для преподавателей и методистов вуза",
-    sub:"Как я превратила разрозненный документооборот в единую систему поиска, хранения и передачи документации",
-    text:`<div class="case-block">
-
+    title:'Внутренняя база документации для преподавателей и методистов вуза',
+    sub:'Как я превратила разрозненный документооборот в единую систему поиска, хранения и передачи документации',
+    text:`
 <h3>Контекст проекта</h3>
-
-<p>
-В университете не существовало единого пространства для работы преподавателей и методистов с внутренней документацией.
-Информация и документы передавались через разные каналы: рабочие чаты, флешки, личные сообщения и другие неструктурированные способы. В результате один и тот же документ было сложно найти, понять, где находится его актуальная версия и к кому обращаться за нужной информацией.
-Особенно остро проблема проявлялась в ситуациях, когда преподавателю необходимо было быстро найти документ, заполнить отчетность или передать материалы администрации.
-<li>Основные пользователи системы:
-преподаватели — ищут документы, инструкции и подают отчетность;
-методисты — работают с большим количеством документации и помогают преподавателям ориентироваться в процессах;
-администрация — управляет сотрудниками, документацией и правами доступа.</li> 
-</p>
+<p>В университете не существовало единого пространства для работы преподавателей и методистов с внутренней документацией. Информация передавалась через разные каналы: рабочие чаты, флешки, личные сообщения и другие неструктурированные способы. Один и тот же документ было сложно найти, понять, где его актуальная версия и к кому обращаться за нужной информацией. Особенно остро проблема проявлялась, когда преподавателю нужно было быстро найти документ, заполнить отчётность или передать материалы администрации.</p>
+<p><strong>Основные пользователи системы:</strong></p>
+<ul>
+<li>преподаватели — ищут документы, инструкции, подают отчётность;</li>
+<li>методисты — работают с большим объёмом документации и помогают преподавателям ориентироваться в процессах;</li>
+<li>администрация — управляет сотрудниками, документацией и правами доступа.</li>
+</ul>
 
 <h3>Задача</h3>
-
-<p>
-На старте задача звучала достаточно широко:
-Создать внутренний сайт документации для преподавателей и методистов.
-Но уже на этапе исследования стало понятно, что проблема глубже, чем отсутствие сайта.
-Так задачей проекта стало не просто хранение документов, а выстраивание понятных процессов работы с ними.
-</p>
+<p>На старте задача звучала широко: «Создать внутренний сайт документации для преподавателей и методистов». Но уже на этапе исследования стало понятно, что проблема глубже, чем отсутствие сайта — задачей стало не просто хранение документов, а выстраивание понятных процессов работы с ними.</p>
 
 <h3>Исследование</h3>
-
 <ul>
-<li>Я провела 12 глубинных интервью с преподавателями и методистами. Исследование показало, что проблема была не только в отсутствии единого хранилища.
-Документооборот был распределен между людьми и каналами коммуникации.
-У одного процесса могло быть несколько точек входа: сообщение в чате, файл на флешке, письмо или устная рекомендация коллеги.</li> 
-<li>После интервью я систематизировала полученные данные и построила CJM ключевых пользовательских сценариев. На основе интервью и CJM я построила User Flow основных сценариев.</li> 
+<li>Провела 12 глубинных интервью с преподавателями и методистами. Исследование показало: проблема была не только в отсутствии единого хранилища — документооборот был распределён между людьми и каналами коммуникации. У одного процесса могло быть несколько точек входа: сообщение в чате, файл на флешке, письмо или устная рекомендация коллеги.</li>
+<li>Систематизировала данные и построила CJM ключевых пользовательских сценариев, на их основе — User Flow основных сценариев.</li>
 </ul>
 
 <h3>Решение</h3>
-
 <ul>
-<li>Главным решением стала внутренняя система-библиотека, в которой документация структурирована и доступна из одного места.</li> 
-<li>Вместо поиска файлов по чатам, флешкам или личным сообщениям пользователь получает единый источник актуальной информации.</li> 
-<li>Отдельным блоком я спроектировала систему управления для администрации.
-Это было важно, потому что база документации не должна была оставаться статичным архивом. </li> 
+<li>Главным решением стала внутренняя система-библиотека, в которой документация структурирована и доступна из одного места.</li>
+<li>Вместо поиска файлов по чатам, флешкам и личным сообщениям пользователь получает единый источник актуальной информации.</li>
+<li>Отдельным блоком спроектирована система управления для администрации — база документации не должна была оставаться статичным архивом.</li>
 </ul>
 
 <h3>Тестирование</h3>
-
 <ul>
-<li>Чтобы проверить, действительно ли новая структура понятна пользователям, я организовала модерируемое юзабилити-тестирование на 7 пользователях.
-
-Я использовала реальные сценарии, близкие к ежедневным задачам преподавателей и методистов.
-
-Пользователям предлагалось выполнить ключевые задачи:
-
-найти нужный документ;
-разобраться, куда перейти для решения определенной задачи;
-найти информацию для отчетности;
-пройти ключевой пользовательский сценарий;
-ориентироваться в структуре библиотеки.</li> 
-<li> Во время тестирования я наблюдала:
-
-где пользователь начинает поиск;
-какие элементы интерфейса воспринимает как кликабельные;
-где возникают сомнения;
-какие термины оказываются непонятными;
-насколько легко пользователю самостоятельно пройти сценарий. </li> 
+<li>Организовала модерируемое юзабилити-тестирование на 7 пользователях с реальными сценариями, близкими к ежедневным задачам преподавателей и методистов: найти нужный документ; разобраться, куда перейти для решения задачи; найти информацию для отчётности; пройти ключевой сценарий; ориентироваться в структуре библиотеки.</li>
+<li>Во время тестирования наблюдала, где пользователь начинает поиск, какие элементы воспринимает как кликабельные, где возникают сомнения, какие термины непонятны и насколько легко он самостоятельно проходит сценарий.</li>
 </ul>
 
 <h3>Результаты</h3>
-
 <ul>
-<li>В результате проекта у вуза появилась единая цифровая система для работы с внутренней документацией, которой раньше не существовало.</li> 
-<li>Преподаватели и методисты получили:
-
-единое место для поиска документации;
-структурированную библиотеку;
-понятную навигацию;
-более предсказуемый процесс работы с отчетностью;
-меньше необходимости искать документы через чаты и коллег. </li> 
-<li>Главный результат — переход от неформального и разрозненного документооборота к единой системе. </li> 
+<li>У вуза появилась единая цифровая система для работы с внутренней документацией, которой раньше не существовало.</li>
+<li>Преподаватели и методисты получили: единое место поиска документов, структурированную библиотеку, понятную навигацию, предсказуемый процесс отчётности и меньше необходимости искать документы через чаты и коллег.</li>
+<li>Главный результат — переход от неформального разрозненного документооборота к единой системе.</li>
 </ul>`,
-
-    img1:"CJM.png",
-    img2:"Загрузка файлов.png",
-    img3:"Сотрудники.png",
-
-    cap1:"CJM",
-    cap2:"Загрузка файлов",
-    cap3:"Список сотрудников"
+    img1:'CJM.png',             cap1:'CJM',
+    img2:'Загрузка файлов.png', cap2:'Загрузка файлов',
+    img3:'Сотрудники.png',      cap3:'Список сотрудников'
   },
-  
- 4:{
-    title:"UI продуктовые концепты",
-    sub:"Шоты реализованных экранов UI идей",
-    text:`
-<p>
-Здесь представлены проекты, направленные больше на UI, которые не пошли в прод
-</p>`,
 
-    img1:"tracking.png",
-    img2:"цветы.png",
-    img3:"мигран.png",
-
-    cap1:"Приложение по трекингу посылок",
-    cap2:"Цветочный маркетплейс",
-    cap3:"Концепция одного из кейсов"
+  4:{
+    title:'UI продуктовые концепты',
+    sub:'Шоты реализованных экранов UI-идей',
+    text:`<p>Здесь представлены проекты с акцентом на UI, которые не пошли в прод.</p>`,
+    img1:'tracking.png', cap1:'Приложение по трекингу посылок',
+    img2:'цветы.png',    cap2:'Цветочный маркетплейс',
+    img3:'мигран.png',   cap3:'Концепция одного из кейсов'
   },
 
   5:{
-    title:"Личные проекты",
-    sub:"Хакатоны",
-    text:`<h3>Контекст проекта</h3>
-<p>
-Участие в серии геймджемов в составе небольших команд из 1-3 человек. Формат — создание полностью играбельного прототипа за 24-48 часов. Целевая аудитория — жюри и игроки-энтузиасты на площадке itch.io.
-</p>
-<p>
-Проекты: визуальные новеллы с элементами головоломки и 3D-гонка.
-</p>
+    title:'Личные проекты',
+    sub:'Хакатоны',
+    text:`
+<h3>Контекст проекта</h3>
+<p>Участие в серии геймджемов в составе небольших команд из 1–3 человек. Формат — создание полностью играбельного прототипа за 24–48 часов. Целевая аудитория — жюри и игроки-энтузиасты на площадке itch.io. Проекты: визуальные новеллы с элементами головоломки и 3D-гонка.</p>
 
 <h3>Задача</h3>
-<p>
-В условиях дефицита времени разработать интуитивно понятный интерфейс: меню, HUD, подсказки и визуальный стиль, который выделит игру и обеспечит понятный первый опыт.
-</p>
-<p>
-Метрика: оценка жюри и игроков.
-</p>
+<p>В условиях дефицита времени разработать интуитивно понятный интерфейс: меню, HUD, подсказки и визуальный стиль, который выделит игру и обеспечит понятный первый опыт. Метрика — оценка жюри и игроков.</p>
 
 <h3>Исследование</h3>
 <ul>
-  <li>Из-за лимита времени формальные интервью не проводились, применялись быстрое прототипирование и постоянная обратная связь от команды.</li>
-  <li>Анализировались лучшие примеры игр-победителей прошлых джемов с точки зрения UI.</li>
+<li>Из-за лимита времени формальные интервью не проводились — применялись быстрое прототипирование и постоянная обратная связь от команды.</li>
+<li>Анализировались лучшие игры-победители прошлых джемов с точки зрения UI.</li>
 </ul>
 
 <h3>Решение</h3>
 <ul>
-  <li>Для каждого проекта создавались экраны главного меню, окна настроек и внутриигровой интерфейс.</li>
-  <li>Разработаны спрайты персонажей и окружения в единой стилистике: пиксель-арт или hand-drawn иллюстрация.</li>
+<li>Для каждого проекта создавались экраны главного меню, окна настроек и внутриигровой интерфейс.</li>
+<li>Разработаны спрайты персонажей и окружений в единой стилистике: пиксель-арт или hand-drawn иллюстрация.</li>
 </ul>
 
 <h3>Тестирование</h3>
 <ul>
-  <li>Внутреннее тестирование командой с привлечением новых игроков в последний час джема, а также обработка обратной связи на шоукейсе.</li>
-  <li>Быстро исправлялись очевидные проблемы: нечитаемые шрифты и слишком мелкие кнопки.</li>
-  <li>В проекте-победителе обратная связь тестеров помогла переработать окружение и сделать его более интересным.</li>
+<li>Внутреннее тестирование командой с привлечением новых игроков в последний час джема, обработка обратной связи на шоукейсе.</li>
+<li>Быстро исправлялись очевидные проблемы: нечитаемые шрифты и слишком мелкие кнопки.</li>
+<li>В проекте-победителе обратная связь тестеров помогла переработать окружение и сделать его более интересным.</li>
 </ul>
 
 <h3>Результаты</h3>
 <ul>
-  <li>Победа в номинации местном зимнем GameJam</li>
-  <li>Личные показатели: все проекты уложились в дедлайны, без вынужденного удаления ключевого контента.</li>
+<li>Победа в номинации местного зимнего GameJam.</li>
+<li>Личные показатели: все проекты уложились в дедлайны без вынужденного удаления ключевого контента.</li>
 </ul>`,
-
-    img1:"YNeuRU.jpg",
-    img2:"6вшш6анр.PNG",
-    img3:"plakat2.jpg",
-
-    cap1:"Проект-победитель https://mshrmgirl.itch.io/final-race-of-1999",
-    cap2:"https://katandand.itch.io/debt",
-    cap3:"Демо полноценного проекта https://katandand.itch.io/synthetic"
+    img1:'YNeuRU.jpg',
+      cap1:'Проект-победитель — <a href="https://mshrmgirl.itch.io/final-race-of-1999" target="_blank" rel="noopener">final-race-of-1999</a>',
+    img2:'6вшш6анр.PNG',
+      cap2:'<a href="https://katandand.itch.io/debt" target="_blank" rel="noopener">debt</a>',
+    img3:'plakat2.jpg',
+      cap3:'Демо полноценного проекта — <a href="https://katandand.itch.io/synthetic" target="_blank" rel="noopener">synthetic</a>'
   }
-
 };
 
-function openCase(id){
-  playSound();
+/* ================= ЗВУК КЛИКА ================= */
+let clickSound = null;
+try {
+  clickSound = new Audio('CLICK_SOUND.mp3');
+  clickSound.volume = .3;
+} catch(e){ /* файл может отсутствовать */ }
 
-  document.getElementById("cTitle").innerText = data[id].title;
-  document.getElementById("cSub").innerText = data[id].sub;
-  document.getElementById("cText").innerHTML = data[id].text;
-document.getElementById("caseImg1").src = data[id].img1;
-document.getElementById("caseImg2").src = data[id].img2;
-document.getElementById("caseImg3").src = data[id].img3;
-
-document.getElementById("caption1").innerText = data[id].cap1;
-document.getElementById("caption2").innerText = data[id].cap2;
-document.getElementById("caption3").innerText = data[id].cap3;
-  document.getElementById("caseBox").classList.add("active");
+function playSound(){
+  if(!clickSound) return;
+  clickSound.currentTime = 0;
+  clickSound.play().catch(()=>{});
 }
 
-/* ================= TOP BUTTON ================= */
-const topBtn = document.getElementById("topBtn");
+/* ================= ОТКРЫТИЕ КЕЙСА ================= */
+const caseBox = $('#caseBox');
+let closeTimer = null;
 
-window.addEventListener("scroll",()=>{
-  if(window.scrollY > 600){
-    topBtn.style.display="block";
-  } else {
-    topBtn.style.display="none";
-  }
+function openCase(id){
+  const d = casesData[id];
+  if(!d) return;
+
+  playSound();
+
+  $('#cTitle').textContent = d.title;
+  $('#cSub').textContent   = d.sub;
+  $('#cText').innerHTML    = d.text;
+
+  [['#caseImg1','img1','#caption1','cap1'],
+   ['#caseImg2','img2','#caption2','cap2'],
+   ['#caseImg3','img3','#caption3','cap3']].forEach(([iS,k,cS,cK])=>{
+    $(iS).src = d[k];
+    $(cS).innerHTML = d[cK];
+  });
+
+  clearTimeout(closeTimer);
+  caseBox.hidden = false;
+  requestAnimationFrame(()=> requestAnimationFrame(()=> caseBox.classList.add('show')));
+  caseBox.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+function closeCase(){
+  caseBox.classList.remove('show');
+  closeTimer = setTimeout(()=> caseBox.hidden = true, 350);
+}
+
+$$('.project').forEach(p=>{
+  p.addEventListener('click', ()=> openCase(p.dataset.case));
+  p.addEventListener('keydown', e=>{
+    if(e.key === 'Enter' || e.key === ' '){
+      e.preventDefault();
+      openCase(p.dataset.case);
+    }
+  });
 });
-</script>
-<script>
 
-const eyes  = document.querySelectorAll('.eye');
+$('#caseClose').addEventListener('click', closeCase);
 
-document.addEventListener('mousemove',(e)=>{
+/* ================= СТРЕЛКИ КАРУСЕЛИ ================= */
+const track = $('#projTrack');
+const step  = ()=> (track.firstElementChild?.offsetWidth || 400) + 20;
 
-    eyes.forEach(eye=>{
+$('#prevBtn').addEventListener('click', ()=> track.scrollBy({ left:-step(), behavior:'smooth' }));
+$('#nextBtn').addEventListener('click', ()=> track.scrollBy({ left: step(), behavior:'smooth' }));
 
+/* ================= КНОПКА «НАВЕРХ» ================= */
+const topBtn = $('#topBtn');
+addEventListener('scroll', ()=>{
+  topBtn.classList.toggle('show', scrollY > 600);
+}, { passive:true });
+
+topBtn.addEventListener('click', ()=> scrollTo({ top:0, behavior:'smooth' }));
+
+/* ================= КОТИК СЛЕДИТ ГЛАЗАМИ ================= */
+if (canHover && !matchMedia('(prefers-reduced-motion:reduce)').matches){
+  const eyes = $$('.eye');
+  let rafPending = false;
+
+  addEventListener('mousemove', e=>{
+    if(rafPending) return;
+    rafPending = true;
+    requestAnimationFrame(()=>{
+      rafPending = false;
+      eyes.forEach(eye=>{
         const pupil = eye.querySelector('.pupil');
         if(!pupil) return;
-
-        const rect = eye.getBoundingClientRect();
-
-        const eyeCenterX = rect.left + rect.width/2;
-        const eyeCenterY = rect.top + rect.height/2;
-
+        const r = eye.getBoundingClientRect();
         const angle = Math.atan2(
-            e.clientY - eyeCenterY,
-            e.clientX - eyeCenterX
+          e.clientY - (r.top + r.height/2),
+          e.clientX - (r.left + r.width/2)
         );
-
-        const radius = 6;
-
-        const x = Math.cos(angle) * radius;
-        const y = Math.sin(angle) * radius;
-
         pupil.style.transform =
-            `translate(${x}px, ${y}px)`;
-
+          'translate(' + Math.cos(angle)*6 + 'px,' + Math.sin(angle)*6 + 'px)';
+      });
     });
-
-});
-
+  }, { passive:true });
+}
 </script>
 </body>
 </html>
