@@ -273,7 +273,15 @@ section{padding:24px 0}
   border-radius:24px;
   border:1px solid var(--line);
 }
-
+.photo-deco{
+  position:absolute;
+  inset:auto -18px -18px auto;
+  width:120px;height:120px;
+  background:var(--grad);
+  opacity:.14;
+  filter:blur(2px);
+  border-radius:36px;
+  z-index:-1;
 }
 .cat-overlay{
   position:absolute;
@@ -604,7 +612,6 @@ footer{
 
     <!-- Фото + котик -->
     <div class="about-photo">
-      <div class="photo-deco"></div>
       <div class="photo-frame">
         <img class="photo" src="IMG_20260614_131725_1.jpg" alt="Фотография Екатерины">
         <div class="cat-overlay">
